@@ -1,21 +1,59 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/resources/styles_manager.dart';
 import 'package:hospital_managment_system/app/resources/values_manager.dart';
 
+MaterialColor generateMaterialColor(Color color) {
+  return MaterialColor(color.value, {
+    50: tintColor(color, 0.9),
+    100: tintColor(color, 0.8),
+    200: tintColor(color, 0.6),
+    300: tintColor(color, 0.4),
+    400: tintColor(color, 0.2),
+    500: color,
+    600: shadeColor(color, 0.1),
+    700: shadeColor(color, 0.2),
+    800: shadeColor(color, 0.3),
+    900: shadeColor(color, 0.4),
+  });
+}
+int tintValue(int value, double factor) =>
+    max(0, min((value + ((255 - value) * factor)).round(), 255));
+Color tintColor(Color color, double factor) => Color.fromRGBO(
+    tintValue(color.red, factor),
+    tintValue(color.green, factor),
+    tintValue(color.blue, factor),
+    1);
+int shadeValue(int value, double factor) =>
+    max(0, min(value - (value * factor).round(), 255));
+
+Color shadeColor(Color color, double factor) => Color.fromRGBO(
+    shadeValue(color.red, factor),
+    shadeValue(color.green, factor),
+    shadeValue(color.blue, factor),
+    1);
+
 ThemeData getApplicationTheme() {
   return ThemeData(
       // main colors of the app
+
+
+      colorScheme: ColorScheme.light().copyWith(
+        background: Colors.white, // Set the desired background color
+      ),
       primaryColor: ColorManager.primary,
       primaryColorLight: ColorManager.primaryOpacity70,
       primaryColorDark: ColorManager.darkPrimary,
       disabledColor: ColorManager.grey1,
       // ripple color
-      splashColor: ColorManager.primaryOpacity70,
+      splashColor: ColorManager.grey.withOpacity(0.2),
       // will be used incase of disabled button for example
       hintColor: ColorManager.grey,
+      
       // card view theme
       cardTheme: CardTheme(
           color: ColorManager.white,
@@ -29,25 +67,27 @@ ThemeData getApplicationTheme() {
           shadowColor: ColorManager.primaryOpacity70,
           titleTextStyle: getRegularStyle(
               color: ColorManager.white, fontSize: FontSize.s16)),
-      // Button theme
       buttonTheme: ButtonThemeData(
           shape: const StadiumBorder(),
           disabledColor: ColorManager.grey1,
           buttonColor: ColorManager.primary,
           splashColor: ColorManager.primaryOpacity70),
-
-      // elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-              textStyle: getRegularStyle(color: ColorManager.white), backgroundColor: ColorManager.primary,
+              textStyle: TextStyle(
+                color: ColorManager.white,
+                fontWeight: FontWeight.w500
+              ), backgroundColor: ColorManager.primary,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppSize.s12)))),
+                  borderRadius: BorderRadius.circular(AppSize.s12))),
 
-      // Text theme
-      textTheme:const TextTheme(
+      ),
+      textTheme: TextTheme(
         displayLarge: TextStyle(
           fontSize: 24,
           fontFamily: 'Poppins',
+          color: ColorManager.black,
+          fontWeight: FontWeight.w600
 
           ),
         displayMedium: TextStyle(
@@ -122,54 +162,41 @@ ThemeData getApplicationTheme() {
           fontFamily: 'Poppins',
         // Other style properties...
         ),),
-          // displayLarge: getSemiBoldStyle(
-          //     color: ColorManager.darkGrey, fontSize: FontSize.s16),
-          // displayMedium: getRegularStyle(
-          //     color: ColorManager.white, fontSize: FontSize.s16),
-          // displaySmall:
-          //     getBoldStyle(color: ColorManager.primary, fontSize: FontSize.s16),
-          // headlineMedium: getRegularStyle(
-          //     color: ColorManager.primary, fontSize: FontSize.s14),
-          // titleMedium: getMediumStyle(
-          //     color: ColorManager.lightGrey, fontSize: FontSize.s14),
-          // titleSmall: getMediumStyle(
-          //     color: ColorManager.primary, fontSize: FontSize.s14),
-          // bodyMedium: getMediumStyle(color: ColorManager.lightGrey),
-          // bodySmall: getRegularStyle(color: ColorManager.grey1),
-          // bodyLarge: getRegularStyle(color: ColorManager.grey)),
-      // input decoration theme (text form field)
-
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
         contentPadding: const EdgeInsets.all(AppPadding.p8),
-        // hint style
         hintStyle: getRegularStyle(color: ColorManager.grey1),
-
-        // label style
         labelStyle: getMediumStyle(color: ColorManager.darkGrey),
-        // error style
         errorStyle: getRegularStyle(color: ColorManager.error),
 
-        // enabled border
-        enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
-
-        // focused border
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Colors.grey.shade600,
+          ),
+        ),
         focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
-
-        // error border
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: ColorManager.primary,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Colors.grey.shade600,
+          ),
+        ),
         errorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.error, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
-        // focused error border
-        focusedErrorBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
-            borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
-      ));
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: BorderSide(
+            color: Colors.red,
+          ),
+        ),
+
+      ),
+    listTileTheme: ListTileThemeData(
+      horizontalTitleGap: -1,//here adjust based on your need
+    ),
+  );
 }

@@ -12,7 +12,7 @@ class OnboardingController extends GetxController {
 
   nextAction() {
     if (isLastPage) {
-      Get.offNamed(Routes.HOME);
+      Get.offNamed(Routes.LOGIN);
     } else {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);

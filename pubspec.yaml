@@ -10,6 +10,8 @@ dependencies:
   get: 4.6.5
   get_storage: ^2.1.1
   dropdown_search: ^5.0.6
+  image_picker: ^1.0.0
+  flutter_otp_text_field: ^1.1.1
   flutter: 
     sdk: flutter
 
@@ -24,25 +26,59 @@ flutter:
     - assets/images/
     - assets/fonts/
   fonts:
-    - family: "Poppins"
+    - family: "PoppinsBlack"
       fonts:
         - asset: assets/fonts/Poppins-Black.ttf
+    - family: "PoppinsBlackItalic"
+      fonts:
         - asset: assets/fonts/Poppins-BlackItalic.ttf
+    - family: "PoppinsBold"
+      fonts:
         - asset: assets/fonts/Poppins-Bold.ttf
+    - family: "PoppinsBoldItalic"
+      fonts:
         - asset: assets/fonts/Poppins-BoldItalic.ttf
+    - family: "PoppinsExtraBold"
+      fonts:
         - asset: assets/fonts/Poppins-ExtraBold.ttf
+    - family: "PoppinsExtraBoldItalic"
+      fonts:
         - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+    - family: "PoppinsExtraLight"
+      fonts:
         - asset: assets/fonts/Poppins-ExtraLight.ttf
+    - family: "PoppinsExtraLightItalic"
+      fonts:
         - asset: assets/fonts/Poppins-ExtraLightItalic.ttf
+    - family: "PoppinsItalic"
+      fonts:
         - asset: assets/fonts/Poppins-Italic.ttf
+    - family: "PoppinsLight"
+      fonts:
         - asset: assets/fonts/Poppins-Light.ttf
+    - family: "PoppinsLightItalic"
+      fonts:
         - asset: assets/fonts/Poppins-LightItalic.ttf
+    - family: "PoppinsMedium"
+      fonts:
         - asset: assets/fonts/Poppins-Medium.ttf
+    - family: "PoppinsMediumItalic"
+      fonts:
         - asset: assets/fonts/Poppins-MediumItalic.ttf
+    - family: "PoppinsRegular"
+      fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+    - family: "PoppinsSemiBold"
+      fonts:
         - asset: assets/fonts/Poppins-SemiBold.ttf
+    - family: "PoppinsSemiBoldItalic"
+      fonts:
         - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+    - family: "PoppinsThin"
+      fonts:
         - asset: assets/fonts/Poppins-Thin.ttf
+    - family: "PoppinsThinItalic"
+      fonts:
         - asset: assets/fonts/Poppins-ThinItalic.ttf
 
 

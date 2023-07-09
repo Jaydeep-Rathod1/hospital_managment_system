@@ -12,25 +12,31 @@ TextStyle _getTextStyle(
 }
 
 // regular style
-
 TextStyle getRegularStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+    {double fontSize = FontSize.s16, required Color color,}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.regular, color);
+      fontSize, FontConstants.fontPoppinsBold, FontWeightManager.regular, color,);
+}
+
+
+TextStyle getHeadingText(
+    {double fontSize = FontSize.s24, required Color color}) {
+  return _getTextStyle(
+      fontSize, FontConstants.fontPoppinsBold, FontWeightManager.regular, color);
 }
 // light text style
 
 TextStyle getLightStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.light, color);
+      fontSize, FontConstants.fontPoppinsLight, FontWeightManager.light, color);
 }
 // bold text style
 
 TextStyle getBoldStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.bold, color);
+      fontSize, FontConstants.fontPoppinsBold, FontWeightManager.bold, color);
 }
 
 // semi bold text style
@@ -38,7 +44,7 @@ TextStyle getBoldStyle(
 TextStyle getSemiBoldStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.semiBold, color);
+      fontSize, FontConstants.fontPoppinsSemiBold, FontWeightManager.semiBold, color);
 }
 
 
@@ -47,11 +53,28 @@ TextStyle getSemiBoldStyle(
 TextStyle getMediumStyle(
     {double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(
-      fontSize, FontConstants.fontFamily, FontWeightManager.medium, color);
+      fontSize, FontConstants.fontPoppinsMedium, FontWeightManager.medium, color);
 }
 
 
-
+// displayMedium
+//
+// displaySmall
+//
+// headlineLarge
+//
+// headlineMedium
+//
+// headlineSmall
+//
+// titleLarge
+//
+// titleMedium
+//
+// titleSmall
+// bodyLarge
+// bodyMedium
+// bodySmall
 
 
 

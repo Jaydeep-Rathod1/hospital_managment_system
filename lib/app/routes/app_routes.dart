@@ -16,6 +16,7 @@ abstract class Routes {
   static const RESETPASSWORD = _Paths.RESETPASSWORD;
   static const PROFILE = _Paths.PROFILE;
   // static const ONBOARDING = _Paths.ONBOARDING;
+  static const REGISTER_COMPLETE = _Paths.REGISTER_COMPLETE;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const RESETPASSWORD = '/resetpassword';
   static const PROFILE = '/profile';
   // static const ONBOARDING = '/onboarding';
+  static const REGISTER_COMPLETE = '/register-complete';
 }

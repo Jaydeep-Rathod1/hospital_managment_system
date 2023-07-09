@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 
 class FontConstants {
-  static const String fontFamily = "Montserrat";
+  static const String fontPoppinsBlack = "PoppinsBlack";
+  static const String fontPoppinsBlackItalic = "PoppinsBlackItalic";
+  static const String fontPoppinsBold = "PoppinsBold";
+  static const String fontPoppinsBoldItalic = "PoppinsBoldItalic";
+  static const String fontPoppinsExtraBold = "PoppinsExtraBold";
+  static const String fontPoppinsExtraBoldItalic = "PoppinsExtraBoldItalic";
+  static const String fontPoppinsExtraLight = "PoppinsExtraLight";
+  static const String fontPoppinsExtraLightItalic = "PoppinsExtraLightItalic";
+  static const String fontPoppinsItalic = "PoppinsItalic";
+  static const String fontPoppinsLight = "PoppinsLight";
+  static const String fontPoppinsLightItalic = "PoppinsLightItalic";
+  static const String fontPoppinsMedium = "PoppinsMedium";
+  static const String fontPoppinsMediumItalic = "PoppinsMediumItalic";
+  static const String fontPoppinsRegular = "PoppinsRegular";
+  static const String fontPoppinsSemiBold = "PoppinsSemiBold";
+  static const String fontPoppinsSemiBoldItalic = "PoppinsSemiBoldItalic";
+  static const String fontPoppinsThin = "PoppinsThin";
+  static const String fontPoppinsThinItalic = "PoppinsThinItalic";
 }
 
 class FontWeightManager {
@@ -15,8 +32,11 @@ class FontWeightManager {
 class FontSize {
   static const double s12 = 12.0;
   static const double s14 = 14.0;
+  static const double s15 = 15.0;
   static const double s16 = 16.0;
   static const double s17 = 17.0;
   static const double s18 = 18.0;
   static const double s20 = 20.0;
+  static const double s22 = 22.0;
+  static const double s24 = 24.0;
 }

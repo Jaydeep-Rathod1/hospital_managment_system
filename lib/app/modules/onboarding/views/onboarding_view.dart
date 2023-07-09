@@ -13,160 +13,124 @@ class OnboardingView extends GetView<OnboardingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: PageView.builder(
-            controller: _controller.pageController,
-            onPageChanged: _controller.selectedPageIndex,
-            itemCount: _controller.onboardingPages.length,
-            itemBuilder: (context, index) {
-              return Padding(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: (){
+                Get.offNamed(Routes.LOGIN);
+              },
+              child: Container(
                 padding: EdgeInsets.all(20),
-                child: Stack(
+                alignment: Alignment.topRight,
+                child: Text("Skip"),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: PageView.builder(
+                  controller: _controller.pageController,
+                  onPageChanged: _controller.selectedPageIndex,
+                  itemCount: _controller.onboardingPages.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Stack(
 
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Text("Skip"),
-                      ),
-
-                      Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              _controller.onboardingPages[index].imageEsset,
-                              height: Get.mediaQuery.size.height/3.02,
-                              width: Get.mediaQuery.size.width/1.44,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding:EdgeInsets.symmetric(horizontal: 25,vertical: 10),
-                              child: Text(
-                                _controller.onboardingPages[index].title,
-                                style: Get.theme.textTheme.titleMedium,
 
+
+                            Align(
+                              alignment: Alignment.center,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    _controller.onboardingPages[index].imageEsset,
+                                    height: Get.mediaQuery.size.height/3.02,
+                                    width: Get.mediaQuery.size.width/1.44,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                    padding:EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                                    child: Text(
+                                      _controller.onboardingPages[index].title,
+                                      style: Get.theme.textTheme.titleMedium,
+
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Padding(
+                                      padding:EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                                      child: Text(
+                                        _controller.onboardingPages[index].description,
+                                        style: Get.theme.textTheme.labelSmall?.copyWith(
+                                          color: ColorManager.darkGrey,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                  const SizedBox(height: 10),
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 10),
-                            Padding(
-                                padding:EdgeInsets.symmetric(horizontal: 25,vertical: 10),
-                                child: Text(
-                                  _controller.onboardingPages[index].description,
-                                  style: Get.theme.textTheme.labelSmall,
-                                  textAlign: TextAlign.center,
-                                )),
-                            const SizedBox(height: 10),
-                          ],
-                        ),
+                          ]
                       ),
-                      Positioned(
-                        bottom: 20,
+                    );
+                  }),
+            ),
+            Container(
+              width: Get.mediaQuery.size.width,
+              margin: EdgeInsets.all(20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 80,
+                      child: ListView.builder(
+                        itemCount: _controller.onboardingPages.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Obx(() => Container(
+                            margin: const EdgeInsets.all(4),
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              color: _controller.selectedPageIndex.value == index
+                                  ? ColorManager.primary
+                                  : ColorManager.primary.withOpacity(0.5),
+                              shape: BoxShape.circle,
+                            ),
+                          ));
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20), // Add some spacing between the ListView and the ElevatedButton
+                  Container(
+                    height: 42,
+                    width: 150,
+                    child: ElevatedButton(
+                      child: Obx(() {
+                        return Text(
+                          _controller.isLastPage ? "Start" : "Next",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: ColorManager.white,
+                          ),
+                        );
+                      }),
+                      onPressed: _controller.nextAction,
+                    ),
+                  ),
+                ],
+              ),
+            )
 
-                          child: Row(
-                        children: [
-                              ListView.builder(
-                                itemCount: _controller.onboardingPages.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Obx(() {
-                                    return Container(
-                                      margin: const EdgeInsets.all(4),
-                                      width: 12,
-                                      height: 12,
-                                      decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        // color: _controller.selectedPageIndex.value == index
-                                        //     ? "#0B0E43".toColor()
-                                        //     : "#C9CCD2".toColor(),
-                                        shape: BoxShape.circle,
-                                      ),
-                                    );
-                                  });
-                                },
-                              )
-                        ],
-                      )),
-                      /*Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: 60,
-                          // child: Row(
-                          //   children: [
-                          //     ListView.builder(
-                          //       itemCount: _controller.onboardingPages.length,
-                          //       scrollDirection: Axis.horizontal,
-                          //       itemBuilder: (context, index) {
-                          //         return Obx(() {
-                          //           return Container(
-                          //             margin: const EdgeInsets.all(4),
-                          //             width: 12,
-                          //             height: 12,
-                          //             decoration: BoxDecoration(
-                          //               color: Colors.red,
-                          //               // color: _controller.selectedPageIndex.value == index
-                          //               //     ? "#0B0E43".toColor()
-                          //               //     : "#C9CCD2".toColor(),
-                          //               shape: BoxShape.circle,
-                          //             ),
-                          //           );
-                          //         });
-                          //       },
-                          //     )
-                          //   ],
-                          // ),
-                        ),
-                      )*/
-                      // Positioned(
-                      //     bottom: 20,
-                      //     left: 20,
-                      //     child: Row(
-                      //       children: List.generate(
-                      //           _controller.onboardingPages.length,
-                      //               (index) => Obx(() {
-                      //             return Container(
-                      //                 margin: const EdgeInsets.all(4),
-                      //                 width: 12,
-                      //                 height: 12,
-                      //                 decoration: BoxDecoration(
-                      //                     // color:
-                      //                     // _controller.selectedPageIndex.value ==
-                      //                     //     index
-                      //                     //     ? "#0B0E43".toColor()
-                      //                     //     : "#C9CCD2".toColor(),
-                      //                     shape: BoxShape.circle));
-                      //           })),
-                      //     )),
-                      // Positioned(
-                      //     right: 20,
-                      //     bottom: 20,
-                      //     child: FloatingActionButton(
-                      //       // backgroundColor: "#0B0E43".toColor(),
-                      //       elevation: 0,
-                      //       child: Obx(() {
-                      //         return Text(
-                      //           _controller.isLastPage ? "Start" : "Next",
-                      //           style: const TextStyle(
-                      //             fontWeight: FontWeight.w700,
-                      //             fontFamily: "fallingskysebd",
-                      //           ),
-                      //         );
-                      //       }),
-                      //       onPressed: _controller.nextAction,
-                      //     )),
-                      // Positioned(
-                      //     child: Obx(() => IconButton(
-                      //       icon: !_controller.isFirstPage
-                      //           ? Icon(Icons.arrow_back, )
-                      //           : const SizedBox.shrink(),
-                      //       onPressed: () => {_controller.skipAction()},
-                      //     ))),
-
-                    ]
-                ),
-              );
-            }),
+          ],
+        ),
       ),
     );
   }

@@ -18,6 +18,8 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/registerComplete/bindings/register_complete_binding.dart';
+import '../modules/registerComplete/views/register_complete_view.dart';
 import '../modules/reports/bindings/reports_binding.dart';
 import '../modules/reports/views/reports_view.dart';
 import '../modules/resetpassword/bindings/resetpassword_binding.dart';
@@ -87,6 +89,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_COMPLETE,
+      page: () => const RegisterCompleteView(),
+      binding: RegisterCompleteBinding(),
     ),
   ];
 }
