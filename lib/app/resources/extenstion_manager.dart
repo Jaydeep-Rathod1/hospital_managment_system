@@ -28,6 +28,14 @@ extension NullableStringValidationExtensions on String? {
     }
     return null; // Return null for no validation errors
   }
+  String? validateConfirmPassword(String? confirmPassword, String password) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return 'Please enter confirm your password';
+    } else if (confirmPassword != password) {
+      return 'Passwords do not match';
+    }
+    return null; // Return null for no validation errors
+  }
   String? validateMobileNumber() {
     if (this == null || this!.isEmpty) {
       return 'Please enter your mobile number';

@@ -66,6 +66,7 @@ class TextFormFieldCustomState extends State<TextFormFieldCustom> {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       margin: widget.margin??const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         focusNode: widget.focusNode,

@@ -17,6 +17,10 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   // static const ONBOARDING = _Paths.ONBOARDING;
   static const REGISTER_COMPLETE = _Paths.REGISTER_COMPLETE;
+  static const PASSWORD_CHANGE_SUCEESS = _Paths.PASSWORD_CHANGE_SUCEESS;
+  static const DEPARTMENTS = _Paths.DEPARTMENTS;
+  static const MYDOCTORS = _Paths.MYDOCTORS;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
 }
 
 abstract class _Paths {
@@ -35,4 +39,8 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   // static const ONBOARDING = '/onboarding';
   static const REGISTER_COMPLETE = '/register-complete';
+  static const PASSWORD_CHANGE_SUCEESS = '/password-change-suceess';
+  static const DEPARTMENTS = '/departments';
+  static const MYDOCTORS = '/mydoctors';
+  static const NOTIFICATION = '/notification';
 }

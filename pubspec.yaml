@@ -12,6 +12,7 @@ dependencies:
   dropdown_search: ^5.0.6
   image_picker: ^1.0.0
   flutter_otp_text_field: ^1.1.1
+  carousel_slider: ^4.2.1
   flutter: 
     sdk: flutter
 
@@ -24,7 +25,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icons/
     - assets/fonts/
+    - assets/banner/
   fonts:
     - family: "PoppinsBlack"
       fonts:

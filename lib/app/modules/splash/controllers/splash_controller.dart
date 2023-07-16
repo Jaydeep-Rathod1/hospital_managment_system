@@ -12,10 +12,11 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
 
       bool isLoggedIn =true;
       if (isLoggedIn == true) {
-        Get.offNamed(Routes.LOGIN);
+        // Get.offNamed(Routes.LOGIN);
+        Get.offNamed(Routes.HOME);
       } else {
         // Get.offAll();
-        Get.offNamed(Routes.ONBOARDING);
+        Get.offNamed(Routes.HOME);
       }
     });
   }

@@ -1,23 +1,38 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_managment_system/app/routes/app_pages.dart';
 
 class ResetpasswordController extends GetxController {
-  //TODO: Implement ResetpasswordController
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  var isPasswordVisible = false.obs;
+  var isCPasswordVisible = false.obs;
+  final isLoading = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.toggle();
+  }
+  void toggleCPasswordVisibility() {
+    isCPasswordVisible.toggle();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  void submitForm() async{
+    if (formKey.currentState!.validate()) {
+      // Valid form submission\
+      try{
+        Get.offNamed(Routes.PASSWORD_CHANGE_SUCEESS);
+      }catch(e){
+        print('Error occurred: $e');
+      }finally{
 
-  void increment() => count.value++;
+      }
+    } else {
+      // Invalid form submission
+      print('Invalid form submission');
+    }
+
+  }
 }

@@ -17,11 +17,21 @@ class OtpView extends GetView<OtpController> {
   const OtpView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var arguments = Get.arguments;
+    var isResetPassword = arguments['isResetPassword'];
     return  Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Stack(
           children: [
+            // Positioned(
+            //     top: 0,
+            //     left: -60,
+            //     child: Image.asset("assets/images/stack1.png",height: 200,)),
+            // Positioned(
+            //     top: 100,
+            //     right: 0,
+            //     child: Image.asset("assets/images/stack2.png",height: 200,)),
             Align(
                 alignment: Alignment.bottomRight,
                 child: Image.asset("assets/images/backimg.png",height: Get.mediaQuery.size.height/3,)),
@@ -32,7 +42,6 @@ class OtpView extends GetView<OtpController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                     GestureDetector(
-
                         onTap: (){}, child: const Icon(Icons.arrow_back_ios_new)),
                     SizedBox(height: 30,),
                     CustomText(text: "OTP verification",fontSize: FontSize.s24),
@@ -91,7 +100,13 @@ class OtpView extends GetView<OtpController> {
                     ),
                   SizedBox(height: 40,),
                   ElevatedButtonCustom(titleText: "Verify", onPressed: (){
-                    Get.offNamed(Routes.REGISTER_COMPLETE);
+                    if(isResetPassword)
+                      {
+                        Get.offNamed(Routes.RESETPASSWORD);
+                      }else{
+                      Get.offNamed(Routes.REGISTER_COMPLETE);
+                    }
+
                   })
                 ],
               ),

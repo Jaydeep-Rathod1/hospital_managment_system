@@ -360,7 +360,7 @@ class RegisterView extends GetView<RegisterController> {
                                     onPressed:(){
                                       if(controller.activeCurrentStep.value == 2)
                                         {
-                                          Get.offAllNamed(Routes.OTP);
+                                          Get.offAllNamed(Routes.OTP,arguments: {'isResetPassword': false,});
                                         }else{
                                         controls.onStepContinue!();
                                       }
