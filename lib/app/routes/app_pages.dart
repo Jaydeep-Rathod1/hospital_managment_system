@@ -4,6 +4,8 @@ import '../modules/appointment/bindings/appointment_binding.dart';
 import '../modules/appointment/views/appointment_view.dart';
 import '../modules/departments/bindings/departments_binding.dart';
 import '../modules/departments/views/departments_view.dart';
+import '../modules/doctorbydepartments/bindings/doctorbydepartments_binding.dart';
+import '../modules/doctorbydepartments/views/doctorbydepartments_view.dart';
 import '../modules/forgotpassword/bindings/forgotpassword_binding.dart';
 import '../modules/forgotpassword/views/forgotpassword_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -122,6 +124,11 @@ class AppPages {
       name: _Paths.NOTIFICATION,
       page: () => const NotificationView(),
       binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOCTORBYDEPARTMENTS,
+      page: () => const DoctorbydepartmentsView(),
+      binding: DoctorbydepartmentsBinding(),
     ),
   ];
 }

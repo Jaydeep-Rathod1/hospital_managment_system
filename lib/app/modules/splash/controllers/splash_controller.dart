@@ -10,10 +10,10 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
     Future.delayed(Duration(seconds: 1), () {
       print("future deyaled");
 
-      bool isLoggedIn =true;
-      if (isLoggedIn == true) {
-        // Get.offNamed(Routes.LOGIN);
-        Get.offNamed(Routes.HOME);
+      bool isLoggedIn =false;
+      if (isLoggedIn == false) {
+        Get.offNamed(Routes.LOGIN);
+        // Get.offNamed(Routes.HOME);
       } else {
         // Get.offAll();
         Get.offNamed(Routes.HOME);
