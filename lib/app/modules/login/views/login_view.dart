@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +9,10 @@ import 'package:hospital_managment_system/app/resources/extenstion_manager.dart'
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
+import 'package:hospital_managment_system/app/widgets/rounded_loading_button.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
 import 'package:hospital_managment_system/app/widgets/textformfield_custom.dart';
-
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -98,9 +101,16 @@ class LoginView extends GetView<LoginController> {
                       ),
                     ),
                     SizedBox(height: 15,),
-                    ElevatedButtonCustom(
-                      onPressed:controller.submitForm,
-                      titleText: "LOGIN",
+                    // Obx(() => ElevatedButtonCustom(
+                    //   // onPressed:,
+                    //   onPressed: controller.isLoading.value ? null : controller.submitForm, // Disable button while loading
+                    //   isLoading: controller.isLoading.value,
+                    //   titleText: "LOGIN",
+                    // ),),
+                    CustomRoundedLoadingButton(
+                      controller: controller.loginbuttonController,
+                      onPressed: controller.submitForm,
+                      buttonText: 'LOGIN',
                     ),
                     SizedBox(height: 20,),
                     Align(

@@ -120,7 +120,7 @@ class HomeView extends GetView<HomeController> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: ColorManager.lightPrimary,
-                              borderRadius: BorderRadius.circular(100)
+                              borderRadius: BorderRadius.circular(10)
                           ),
                           child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
                       SizedBox(height: 10,),
@@ -164,7 +164,7 @@ class HomeView extends GetView<HomeController> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: ColorManager.lightPrimary,
-                              borderRadius: BorderRadius.circular(100)
+                              borderRadius: BorderRadius.circular(10)
                           ),
                           child: Image.asset("assets/icons/docto2.png",height: 50,width: 50,color: ColorManager.primary,)),
                       SizedBox(height: 10,),

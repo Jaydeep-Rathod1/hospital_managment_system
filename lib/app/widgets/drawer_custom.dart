@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/storage_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
 
@@ -207,7 +208,9 @@ class CustomDrawer extends StatelessWidget {
                     child: CustomText(text: "Log Out",fontSize: FontSize.s16,fontWeight: FontWeight.w500,color: ColorManager.primary,),
                   ),
                   onTap: () {
-                    Get.back(); // Close the drawer
+                    final StorageManager _storage = StorageManager();
+                    _storage.removeAll();
+                    Get.offNamed('/login'); // Close the drawer
                     // Perform desired actions for Home
                   },
                 ),

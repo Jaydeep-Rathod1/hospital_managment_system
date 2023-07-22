@@ -4,19 +4,26 @@ import 'package:hospital_managment_system/app/data/model/onboarding_model.dart';
 import 'package:hospital_managment_system/app/resources/assets_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 
+import '../../../resources/storage_manager.dart';
+
 class OnboardingController extends GetxController {
   var selectedPageIndex = 0.obs;
   var pageController = PageController();
   bool get isFirstPage => selectedPageIndex.value == 0;
   bool get isLastPage => selectedPageIndex.value == onboardingPages.length - 1;
-
-  nextAction() {
+  final StorageManager _storage = StorageManager();
+  nextAction()async {
     if (isLastPage) {
+      await _storage.setValue('isOnboarding',true);
       Get.offNamed(Routes.LOGIN);
     } else {
       pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
+  }
+  onSkip()async{
+    await _storage.setValue('isOnboarding',true);
+    Get.offNamed(Routes.LOGIN);
   }
 
   skipAction() {

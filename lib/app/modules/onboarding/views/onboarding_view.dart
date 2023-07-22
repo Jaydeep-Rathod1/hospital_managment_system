@@ -16,9 +16,7 @@ class OnboardingView extends GetView<OnboardingController> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: (){
-                Get.offNamed(Routes.LOGIN);
-              },
+              onTap: _controller.onSkip(),
               child: Container(
                 padding: EdgeInsets.all(20),
                 alignment: Alignment.topRight,
