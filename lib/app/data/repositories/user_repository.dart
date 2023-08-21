@@ -6,4 +6,7 @@ class UserRepository {
   Future<dynamic?> getDepartments(url) async {
     return  _apiProvider.getDepartments(url);
   }
+  Future<dynamic?> getDoctorByDepartments(url,params) async {
+  return  _apiProvider.getDoctorByDepartments(url,params);
+}
 }

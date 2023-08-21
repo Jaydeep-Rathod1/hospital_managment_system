@@ -17,4 +17,19 @@ class UserProvider {
       return null;
     }
   }
+  Future<dynamic?> getDoctorByDepartments(url,params) async {
+    try{
+      var response = await ApiHandler.post(url,body: params);
+      print("here = ${response}");
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return null;
+    }
+  }
+
 }

@@ -27,10 +27,7 @@ class DepartmentsController extends GetxController {
       var response = await _userRepository.getDepartments(url);
       if(response['status'] == "true"){
         List<dynamic> data = response['data'];
-
-
         departmentList.value =data.map((e) =>DepartmentModel.fromJson(e)).toList();
-
         isLoading.value = false;
       }else{
         isLoading.value = false;

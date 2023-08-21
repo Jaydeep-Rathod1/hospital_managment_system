@@ -17,6 +17,8 @@ class UserModel {
   String? status;
   String? gender;
   String? bloodGroup;
+  String? charge;
+  String? experience;
   String? isVerify;
   String? isApporve;
   String? isDelete;
@@ -42,6 +44,8 @@ class UserModel {
         this.status,
         this.gender,
         this.bloodGroup,
+        this.charge,
+        this.experience,
         this.isVerify,
         this.isApporve,
         this.isDelete,
@@ -67,6 +71,8 @@ class UserModel {
     status = json['status'] ?? "";
     gender = json['gender'] ?? "";
     bloodGroup = json['blood_group'] ?? "";
+    charge = json['charge'] ?? "";
+    experience = json['experience'] ?? "";
     isVerify = json['is_verify'] ?? "";
     isApporve = json['is_apporve'] ?? "";
     isDelete = json['is_delete'] ?? "";
@@ -94,6 +100,8 @@ class UserModel {
     data['status'] = this.status;
     data['gender'] = this.gender;
     data['blood_group'] = this.bloodGroup;
+    data['charge'] = this.charge;
+    data['experience'] =  this.experience;
     data['is_verify'] = this.isVerify;
     data['is_apporve'] = this.isApporve;
     data['is_delete'] = this.isDelete;

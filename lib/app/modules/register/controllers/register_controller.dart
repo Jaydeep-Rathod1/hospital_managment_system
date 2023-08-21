@@ -2,21 +2,21 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_managment_system/app/data/repositories/authentication_repository.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/extenstion_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
 import 'package:hospital_managment_system/app/widgets/textformfield_custom.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-enum Gender {
-  male,
-  female,
-  other,
-}
+
 
 class RegisterController extends GetxController {
+  final AuthenticationRepository _authenticationRepository = AuthenticationRepository();
   RxInt activeCurrentStep = 0.obs;
   List<GlobalKey<FormState>> formKeys = List.generate(
     3,
@@ -34,19 +34,20 @@ class RegisterController extends GetxController {
   void togglePasswordVisibility() {
     isPasswordVisible.toggle();
   }
-  var selectedGender = Gender.male.obs;
+  Rx<String> selectedGender = "".obs;
   XFile? _image;
   PickedFile? _pickedFile;
   final _picker = ImagePicker();
   // Implementing the image picker
   final selected = "A+".obs;
-
   void setSelected(String value){
     selected.value = value;
   }
-  void selectGender(Gender gender) {
+  void selectGender(gender) {
     selectedGender.value = gender;
   }
+  RoundedLoadingButtonController loginbuttonController =
+  RoundedLoadingButtonController();
   final FocusNode focusNode = FocusNode();
   Rx<DateTime> selectedStartDate = Rx<DateTime>(DateTime.now());
   Future<void> selectStartDate(BuildContext context) async {
@@ -56,8 +57,8 @@ class RegisterController extends GetxController {
 
       context: context,
       initialDate: selectedStartDate.value,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
@@ -88,13 +89,14 @@ class RegisterController extends GetxController {
 
   void stepContinue() {
     print(activeCurrentStep.value);
-    // if (formKeys[activeCurrentStep.value].currentState!.validate()) {
+    if (formKeys[activeCurrentStep.value].currentState!.validate()) {
       if (activeCurrentStep < 3 - 1) {
+        loginbuttonController.reset();
         activeCurrentStep.value += 1;
       } else {
         activeCurrentStep.value = 0;
       }
-    // }
+    }
 
   }
   String? validatePassword(String? value) {
@@ -184,14 +186,74 @@ class RegisterController extends GetxController {
     if (xfilePick != null) {
       galleryFile.value = File(pickedFile!.path);
     } else {
-      Get.snackbar(
-        'Error',
-        'Nothing is selected',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      // Get.snackbar(
+      //   'Error',
+      //   'Nothing is selected',
+      //   snackPosition: SnackPosition.BOTTOM,
+      // );
     }
 
 
 
+  }
+  submitForm()async{
+    if (formKeys[activeCurrentStep.value].currentState!.validate()){
+    var firstname =firstNameController.value.text.toString();
+    var lastname =lastNameController.value.text.toString();
+    var email =emailController.value.text.toString();
+    var mobileno =mobilenoController.value.text.toString();
+    var address =addressController.value.text.toString();
+    var dob =selectedStartDate;
+    var gender = selectedGender.value.toString();
+    var bloodGroup = selected.value.toString();
+
+    Map<String,dynamic> params = {
+      "firstname":firstname,
+      "lastname":lastname,
+      "email":email,
+      "mobile_no":mobileno,
+      "address":address,
+      "date_of_birth":dob,
+      "gender":gender,
+      "blood_group":bloodGroup,
+    };
+    try{
+      String url = UrlManager.REGISTER_URL;
+      var response = await _authenticationRepository.regsiterUser(params,url,"profile_picture",galleryFile.value! );
+      print("response = ${response.toString()}");
+
+      if(response['status'] == "true"){
+        loginbuttonController.success();
+        Get.offNamed('/home');
+      }else{
+        print("in else");
+        Get.snackbar(
+          'Error',
+          response['message'],
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          margin: EdgeInsets.all(20),
+          duration: Duration(seconds: 3),
+        );
+      }
+    } catch (error) {
+      print("Error: $error");
+      loginbuttonController.reset();
+      Get.snackbar(
+        'Error',
+        "",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        margin: EdgeInsets.all(20),
+        duration: Duration(seconds: 3),
+      );
+    }
+    }else{
+      print("in else");
+      loginbuttonController.reset();
+    }
+    print("on submut form");
   }
 }

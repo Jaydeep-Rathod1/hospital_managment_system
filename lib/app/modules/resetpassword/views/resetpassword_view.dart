@@ -16,8 +16,18 @@ class ResetpasswordView extends GetView<ResetpasswordController> {
   const ResetpasswordView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    controller.receivedData.value  = Get.arguments;
     return Scaffold(
         resizeToAvoidBottomInset:false,
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade50,
+          elevation: 0,
+
+          title: CustomText(text: 'Reset Password',fontSize: 18,color: ColorManager.primary,),
+          iconTheme: IconThemeData(
+            color: ColorManager.primary, //change your color here
+          ),
+        ),
         body:SafeArea(
           child: Stack(
             children: [
@@ -30,15 +40,7 @@ class ResetpasswordView extends GetView<ResetpasswordController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10,),
-                      CustomText(
-                        text: "Reset password",
-                        maxLines: 2,
-                        textStyle: Get.theme.textTheme.displayLarge,
-                        letterSpacing: 2,
-                        // textStyle:
-                      ),
-                      SizedBox(height: 30,),
+
                       CustomText(
                         text: "Password",
                         maxLines: 2,
@@ -92,14 +94,10 @@ class ResetpasswordView extends GetView<ResetpasswordController> {
                           color: ColorManager.grey,)),
                       ),),
                       SizedBox(height: 30,),
-
-
                       ElevatedButtonCustom(
                         onPressed:controller.submitForm,
                         titleText: "CONFIRM",
                       ),
-
-
                     ],
                   ),
                 ),

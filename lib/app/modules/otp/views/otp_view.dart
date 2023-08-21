@@ -3,8 +3,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
@@ -17,36 +17,35 @@ class OtpView extends GetView<OtpController> {
   const OtpView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    var arguments = Get.arguments;
-    var isResetPassword = arguments['isResetPassword'];
+    controller.receivedData.value  = Get.arguments;
     return  Scaffold(
-      resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset:false,
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade50,
+        elevation: 0,
+
+        title: CustomText(text: 'OTP verification',fontSize: 18,color: ColorManager.primary,),
+        iconTheme: IconThemeData(
+          color: ColorManager.primary, //change your color here
+        ),
+      ),
       body: SafeArea(
         child: Stack(
           children: [
-            // Positioned(
-            //     top: 0,
-            //     left: -60,
-            //     child: Image.asset("assets/images/stack1.png",height: 200,)),
-            // Positioned(
-            //     top: 100,
-            //     right: 0,
-            //     child: Image.asset("assets/images/stack2.png",height: 200,)),
             Align(
                 alignment: Alignment.bottomRight,
                 child: Image.asset("assets/images/backimg.png",height: Get.mediaQuery.size.height/3,)),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
+                // mainAxisSize: MainAxisSize.min,
                 children: [
-                    GestureDetector(
-                        onTap: (){}, child: const Icon(Icons.arrow_back_ios_new)),
-                    SizedBox(height: 30,),
-                    CustomText(text: "OTP verification",fontSize: FontSize.s24),
-                    SizedBox(height: 8,),
-                    CustomText(text: "Otp has been sent to your Email address",fontSize: FontSize.s14,fontWeight: FontWeight.normal,),
+                  SizedBox(height: 40,),
+                    CustomText(text: "Otp has been sent to your Email address",fontSize: FontSize.s14,fontWeight: FontWeight.normal,
+                    textAlign: TextAlign.center,
+                    ),
                     SizedBox(height: 20,),
                     OtpTextField(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +65,7 @@ class OtpView extends GetView<OtpController> {
                       },
                       //runs when every textfield is filled
                       onSubmit: (String verificationCode){
-                        print("success");
+                        controller.matchedString.value = verificationCode;
                       }, // end onSubmit
                     ),
                     SizedBox(height: 20,),
@@ -87,8 +86,9 @@ class OtpView extends GetView<OtpController> {
                                           fontWeight: FontWeight.bold, fontSize: FontSize.s16),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                          print("on tap singup");
-                                          Get.toNamed(Routes.REGISTER);
+                                          // print("on tap singup");
+                                          // Get.toNamed(Routes.REGISTER);
+                                          controller.resendOtp();
                                         }
                                   )
                                 ]
@@ -99,13 +99,10 @@ class OtpView extends GetView<OtpController> {
                       ],
                     ),
                   SizedBox(height: 40,),
-                  ElevatedButtonCustom(titleText: "Verify", onPressed: (){
-                    if(isResetPassword)
-                      {
-                        Get.offNamed(Routes.RESETPASSWORD);
-                      }else{
-                      Get.offNamed(Routes.REGISTER_COMPLETE);
-                    }
+                  ElevatedButtonCustom(titleText: "Verify",
+                      onPressed: (){
+                    controller.submitOTP();
+
 
                   })
                 ],

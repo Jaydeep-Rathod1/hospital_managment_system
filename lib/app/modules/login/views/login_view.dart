@@ -21,26 +21,39 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset:false,
+
         body:SafeArea(
         child: Stack(
           children: [
 
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20.0),
               child: Form(
                 key:controller.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
-                    CustomText(
-                      text: "Login into your \nAccount",
-                      maxLines: 2,
-                      textStyle: Get.theme.textTheme.displayLarge,
-                      letterSpacing: 2,
-                      // textStyle:
+                   /* Container(
+                      alignment: Alignment.center,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: ColorManager.primary
+                          ),
+                          child: Image.asset("assets/images/logo.png"),
+                        ),
+                      ),
                     ),
+                    SizedBox(height: 10,),*/
+                    Container(
+                        alignment: Alignment.center,
+                        child: CustomText(text: 'LOG IN',fontSize: 24,color: ColorManager.primary,)),
                     SizedBox(height: 30,),
                     CustomText(
                       text: "Email",
@@ -86,7 +99,7 @@ class LoginView extends GetView<LoginController> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                         onTap: (){
-                          Get.offNamed(Routes.FORGOTPASSWORD);
+                          Get.toNamed(Routes.FORGOTPASSWORD);
                         },
                         child: CustomText(
                           text: "Forget Password ?",

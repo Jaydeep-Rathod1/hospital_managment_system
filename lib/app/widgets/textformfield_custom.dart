@@ -130,10 +130,22 @@ class TextFormFieldCustomState extends State<TextFormFieldCustom> {
               color: Colors.grey.shade600,
             ),
           ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Colors.red,
+            ),
+          ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(
               color: Colors.red,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(
+              color: Colors.grey.shade600,
             ),
           ),
         ),

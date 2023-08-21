@@ -8,6 +8,7 @@ import 'package:hospital_managment_system/app/resources/extenstion_manager.dart'
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
+import 'package:hospital_managment_system/app/widgets/rounded_loading_button.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
 import 'package:hospital_managment_system/app/widgets/textformfield_custom.dart';
 
@@ -18,14 +19,19 @@ class RegisterView extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-        resizeToAvoidBottomInset:false,
-        
+      resizeToAvoidBottomInset:false,
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade50,
+        elevation: 0,
+
+        title: CustomText(text: 'Registration',fontSize: 18,color: ColorManager.primary,),
+        iconTheme: IconThemeData(
+          color: ColorManager.primary, //change your color here
+        ),
+      ),
       body:SafeArea(
           child: Stack(
-            // fit: StackFit.expand,
             children: [
-
               Align(
                   alignment: Alignment.bottomRight,
                   child: Image.asset("assets/images/backimg.png",height: Get.mediaQuery.size.height/3,)),
@@ -35,33 +41,40 @@ class RegisterView extends GetView<RegisterController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(onPressed: (){
-
-                      }, icon: Icon(Icons.arrow_back_ios_new))),
-
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 20.0,right: 20,top: 10),
-                  //   child: CustomText(
-                  //     text: "Get your free \nAccount",
-                  //     maxLines: 2,
-                  //     textStyle: Get.theme.textTheme.displayLarge,
-                  //     letterSpacing: 2,
-                  //     // textStyle:
-                  //   ),
-                  // ),
-
+                  /*SizedBox(height: 15,),
+                  Container(
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: ColorManager.primary
+                        ),
+                        child: Image.asset("assets/images/logo.png"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10,),*/
+                 /* Container(
+                      alignment: Alignment.center,
+                      child: CustomText(text: 'Register',fontSize: 24,color: ColorManager.primary,)),*/
                   Expanded(
-                    flex: 1,
                     child: Obx(
                           () => Stepper(
                         elevation: 0.0,
                         type: StepperType.horizontal,
                         currentStep: controller.activeCurrentStep.value,
+                        margin: EdgeInsets.zero,
                         steps: [
                           Step(
-                            label: CustomText( text: 'Register' ,color:controller.activeCurrentStep == 0? ColorManager.primary:ColorManager.black,),
+                            label: CustomText( text: 'Contact' ,
+                              color:controller.activeCurrentStep == 0? ColorManager.primary:ColorManager.black,
+                              textAlign: TextAlign.center,
+                            ),
                             title: const SizedBox.shrink(),
                             content: Form(
                               key: controller.formKeys[0],
@@ -72,17 +85,50 @@ class RegisterView extends GetView<RegisterController> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     CustomText(
+                                      text: "First Name",
+                                      maxLines: 2,
+                                      textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
+                                      ),
+                                      letterSpacing: 2,
+                                      // textStyle:
+                                    ),
+                                    TextFormFieldCustom(
+                                      textController: controller.firstNameController,
+                                      hintText: "First Name",
+                                      keyboardType: TextInputType.emailAddress,
+                                      // validator: (value) => value!.validateEmail(),
+                                    ),
+                                    CustomText(
+                                      text: "Last Name",
+                                      maxLines: 2,
+                                      textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
+                                      ),
+                                      letterSpacing: 2,
+                                      // textStyle:
+                                    ),
+                                    TextFormFieldCustom(
+                                      textController: controller.lastNameController,
+                                      hintText: "Last Name",
+                                      keyboardType: TextInputType.emailAddress,
+                                      // validator: (value) => value!.validateEmail(),
+                                    ),
+                                    CustomText(
                                       text: "Mobile No",
                                       maxLines: 2,
                                       textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
                                       ),
                                       letterSpacing: 2,
                                       // textStyle:
                                     ),
                                     TextFormFieldCustom(
                                       textController: controller.mobilenoController,
-                                      hintText: "Enter Mobile No",
+                                      hintText: "Mobile No",
                                       keyboardType: TextInputType.phone,
                                       validator: (value) => value!.validateMobileNumber(),
                                     ),
@@ -91,61 +137,18 @@ class RegisterView extends GetView<RegisterController> {
                                       text: "Email",
                                       maxLines: 2,
                                       textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
                                       ),
                                       letterSpacing: 2,
                                       // textStyle:
                                     ),
                                     TextFormFieldCustom(
                                       textController: controller.emailController,
-                                      hintText: "Enter Email",
+                                      hintText: "Email",
                                       keyboardType: TextInputType.emailAddress,
                                       validator: (value) => value!.validateEmail(),
                                     ),
-                                    CustomText(
-                                      text: "Password",
-                                      maxLines: 2,
-                                      textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
-                                      ),
-                                      letterSpacing: 2,
-                                      // textStyle:
-                                    ),
-                                    Obx(() => TextFormFieldCustom(
-                                      textController: controller.passwordController,
-                                      keyboardType: TextInputType.text,
-                                      obscureText: controller.isPasswordVisible.value,
-                                      hintText: "Enter Password",
-                                      validator:controller.validatePassword,
-                                      suffixIcon: IconButton(onPressed: (){
-                                        controller.togglePasswordVisibility();
-                                      }, icon: Icon(controller.isPasswordVisible.value
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                        color: ColorManager.grey,)),
-                                    ),),
-                                    CustomText(
-                                      text: "Confirm Password",
-                                      maxLines: 2,
-                                      textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
-                                      ),
-                                      letterSpacing: 2,
-                                      // textStyle:
-                                    ),
-                                    Obx(() => TextFormFieldCustom(
-                                      textController: controller.cpasswordController,
-                                      keyboardType: TextInputType.text,
-                                      obscureText: controller.isPasswordVisible.value,
-                                      hintText: "Enter Confirm Password",
-                                      validator:controller.validateConfirmPassword,
-                                      suffixIcon: IconButton(onPressed: (){
-                                        controller.togglePasswordVisibility();
-                                      }, icon: Icon(controller.isPasswordVisible.value
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                        color: ColorManager.grey,)),
-                                    ),),
                                   ],
                                 ),
                               ),
@@ -169,7 +172,8 @@ class RegisterView extends GetView<RegisterController> {
                                       text: "Address",
                                       maxLines: 2,
                                       textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
                                       ),
                                       letterSpacing: 2,
                                       // textStyle:
@@ -185,7 +189,8 @@ class RegisterView extends GetView<RegisterController> {
                                       text: "Gender",
 
                                       textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
                                       ),
                                       letterSpacing: 2,
                                       // textStyle:
@@ -196,12 +201,12 @@ class RegisterView extends GetView<RegisterController> {
                                       children: [
                                         Expanded(
                                           flex:1,
-                                          child: RadioListTile<Gender>(
+                                          child: RadioListTile(
                                             title: CustomText( text: 'Male', textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
                                               fontSize: FontSize.s16,
                                             ),),
                                             // titlePadding: EdgeInsets.zero,
-                                            value: Gender.male,
+                                            value: "Male",
                                             contentPadding: EdgeInsets.zero,
                                             groupValue: controller.selectedGender.value,
                                             selectedTileColor: ColorManager.primary,
@@ -214,12 +219,12 @@ class RegisterView extends GetView<RegisterController> {
                                         ),
                                         Expanded(
                                           flex:1,
-                                          child: RadioListTile<Gender>(
+                                          child: RadioListTile(
                                             title: CustomText( text: 'Female', textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
                                               fontSize: FontSize.s16,
                                             ),),
                                             contentPadding: EdgeInsets.zero,
-                                            value: Gender.female,
+                                            value: "Female",
                                             groupValue: controller.selectedGender.value,
                                             selectedTileColor: ColorManager.primary,
                                             activeColor: ColorManager.primary,
@@ -231,11 +236,11 @@ class RegisterView extends GetView<RegisterController> {
                                         Expanded(
                                           // width:100,
                                           flex:1,
-                                          child: RadioListTile<Gender>(
+                                          child: RadioListTile(
                                             title: CustomText( text: 'Other', textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
                                               fontSize: FontSize.s16,
                                             ),),
-                                            value: Gender.other,
+                                            value: "Other",
                                             selectedTileColor: ColorManager.primary,
                                             activeColor: ColorManager.primary,
                                             contentPadding: EdgeInsets.zero,
@@ -251,7 +256,8 @@ class RegisterView extends GetView<RegisterController> {
                                       text: "Date Of Birth",
                                       maxLines: 2,
                                       textStyle: Get.theme.textTheme.bodyMedium!.copyWith(
-                                          fontSize: FontSize.s17
+                                          fontSize: FontSize.s14,
+                                          fontWeight: FontWeight.w500
                                       ),
                                       letterSpacing: 2,
                                       // textStyle:
@@ -261,6 +267,7 @@ class RegisterView extends GetView<RegisterController> {
                                       hintText: "Choose Date Of Birth",
                                       keyboardType: TextInputType.text,
                                       readOnly: true,
+
                                       onTap: ()async{
                                         controller.selectStartDate(context);
                                       },
@@ -284,11 +291,42 @@ class RegisterView extends GetView<RegisterController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
+                                    // SizedBox(
+                                    //   width:180,
+                                    //   child: ElevatedButtonCustom(
+                                    //     onPressed: controller.openChooseDialog,
+                                    //     titleText:  "Choose Image",
+                                    //   ),
+                                    // ),
                                     SizedBox(
-                                      width:180,
-                                      child: ElevatedButtonCustom(
-                                        onPressed: controller.openChooseDialog,
-                                        titleText:  "Choose Image",
+                                      width: 180,
+                                      child: OutlinedButton(
+
+                                        onPressed: () {
+                                            controller.openChooseDialog();
+                                        },
+                                        style: ButtonStyle(
+                                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                            EdgeInsets.all(10), // Remove padding inside the button
+                                          ),
+                                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                          side: MaterialStateProperty.all<BorderSide>(
+                                            BorderSide(color: ColorManager.primary),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Choose Image",
+                                          style: TextStyle(
+                                              color: ColorManager.primary,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:  16,
+                                              fontFamily: FontConstants.fontPoppinsMedium
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(height: 10,),
@@ -300,12 +338,16 @@ class RegisterView extends GetView<RegisterController> {
                                           child: Image.file(galleryFile,height: 80,width: 80,fit: BoxFit.cover),
                                         );
                                       } else {
-                                        return Text('No image selected');
+                                        return Container();
                                       }
                                     }),
                                     SizedBox(height: 20,),
                                     Obx( () => DropdownButtonHideUnderline(
+
                                       child: DropdownButtonFormField(
+                                        decoration: InputDecoration(
+                                          fillColor: Colors.grey.shade50,
+                                        ),
                                         hint: Text(
                                           'Book Type',
                                         ),
@@ -315,6 +357,7 @@ class RegisterView extends GetView<RegisterController> {
                                         value: controller.selected.value,
                                         items: ['A+','A-','B+','B-','AB+','AB-','O+','O-'].map((selectedType) {
                                           return DropdownMenuItem(
+
                                             child: new Text(
                                               selectedType,
                                             ),
@@ -352,21 +395,31 @@ class RegisterView extends GetView<RegisterController> {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: Row(
                               children: <Widget>[
-                                SizedBox(
+                               /* SizedBox(
                                   width:120,
                                   // height: 40,
 
                                   child: ElevatedButtonCustom(
-                                    onPressed:(){
+                                    onPressed:
+                                    titleText: controller.activeCurrentStep.value == 2 ? "Finish" : "Next",
+                                  ),
+                                ),*/
+                                SizedBox(
+                                  width:120,
+                                  child: CustomRoundedLoadingButton(
+                                    controller: controller.loginbuttonController,
+                                    onPressed: (){
                                       if(controller.activeCurrentStep.value == 2)
-                                        {
-                                          Get.offAllNamed(Routes.OTP,arguments: {'isResetPassword': false,});
-                                        }else{
+                                      {
+                                        controller.submitForm();
+
+                                        // Get.offAllNamed(Routes.OTP,arguments: {'isResetPassword': false,});
+                                      }else{
                                         controls.onStepContinue!();
                                       }
 
                                     },
-                                    titleText: controller.activeCurrentStep.value == 2 ? "Finish" : "Next",
+                                    buttonText: controller.activeCurrentStep.value == 2 ? "Finish" : "Next",
                                   ),
                                 ),
                                 if (controller.activeCurrentStep.value != 0)
@@ -389,7 +442,7 @@ class RegisterView extends GetView<RegisterController> {
                                           ),
                                         ),
                                         side: MaterialStateProperty.all<BorderSide>(
-                                          BorderSide(color: Colors.blue),
+                                          BorderSide(color: ColorManager.primary),
                                         ),
                                       ),
                                       child: Text(
