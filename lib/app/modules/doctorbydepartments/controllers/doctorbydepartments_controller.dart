@@ -17,7 +17,7 @@ class DoctorbydepartmentsController extends GetxController {
   void onInit() {
     super.onInit();
     print("init controler");
-    // isLoading.value = true;
+    isLoading.value = true;
     if (arguments != null && arguments.containsKey("departmentModel")) {
       departmentModel = arguments["departmentModel"];
       departmentNameTitle.value = departmentModel!.name ?? "";
@@ -35,7 +35,7 @@ class DoctorbydepartmentsController extends GetxController {
     if (arguments != null && arguments.containsKey("departmentModel")) {
       departmentModel = arguments["departmentModel"];
       try{
-        await Future.delayed(Duration(seconds: 10));
+
         var url = UrlManager.DOCTOR_BY_DEPARTMENT_URL;
         Map<String,dynamic> params = {
           "department_id" : departmentModel!.departmentId
@@ -48,15 +48,15 @@ class DoctorbydepartmentsController extends GetxController {
           isLoading.value = false;
         }else{
           isLoading.value = false;
-          Get.snackbar(
-            'Error',
-            "",
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: ColorManager.error,
-            colorText: ColorManager.white,
-            margin: EdgeInsets.all(20),
-            duration: Duration(seconds: 3),
-          );
+          // Get.snackbar(
+          //   'Error',
+          //   "",
+          //   snackPosition: SnackPosition.BOTTOM,
+          //   backgroundColor: ColorManager.error,
+          //   colorText: ColorManager.white,
+          //   margin: EdgeInsets.all(20),
+          //   duration: Duration(seconds: 3),
+          // );
         }
 
       }catch(e){

@@ -8,5 +8,13 @@ class UserRepository {
   }
   Future<dynamic?> getDoctorByDepartments(url,params) async {
   return  _apiProvider.getDoctorByDepartments(url,params);
-}
+  }
+
+  Future<dynamic?> getDashborad(url) async {
+    return  _apiProvider.getDashborad(url);
+  }
+
+  Future<dynamic?> getAllDoctor(url) async {
+    return  _apiProvider.getAllDoctor(url);
+  }
 }

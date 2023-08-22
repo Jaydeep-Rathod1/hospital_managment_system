@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/addappointment/bindings/addappointment_binding.dart';
+import '../modules/addappointment/views/addappointment_view.dart';
+import '../modules/alldoctors/bindings/alldoctors_binding.dart';
+import '../modules/alldoctors/views/alldoctors_view.dart';
 import '../modules/appointment/bindings/appointment_binding.dart';
 import '../modules/appointment/views/appointment_view.dart';
 import '../modules/departments/bindings/departments_binding.dart';
@@ -14,8 +18,6 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-import '../modules/mydoctors/bindings/mydoctors_binding.dart';
-import '../modules/mydoctors/views/mydoctors_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
@@ -117,11 +119,7 @@ class AppPages {
       page: () => const DepartmentsView(),
       binding: DepartmentsBinding(),
     ),
-    GetPage(
-      name: _Paths.MYDOCTORS,
-      page: () => const MydoctorsView(),
-      binding: MydoctorsBinding(),
-    ),
+
     GetPage(
       name: _Paths.NOTIFICATION,
       page: () => const NotificationView(),
@@ -136,6 +134,16 @@ class AppPages {
       name: _Paths.DOCTORDETAILS,
       page: () => const DoctordetailsView(),
       binding: DoctordetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDAPPOINTMENT,
+      page: () => const AddappointmentView(),
+      binding: AddappointmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALLDOCTORS,
+      page: () => const AlldoctorsView(),
+      binding: AlldoctorsBinding(),
     ),
   ];
 }

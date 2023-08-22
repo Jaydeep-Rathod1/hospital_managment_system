@@ -22,7 +22,7 @@ class DepartmentsController extends GetxController {
   getAllDepartments()async{
     try{
       isLoading.value = true;
-      await Future.delayed(Duration(seconds: 10));
+
       var url = UrlManager.DEPARTMENT_URL;
       var response = await _userRepository.getDepartments(url);
       if(response['status'] == "true"){

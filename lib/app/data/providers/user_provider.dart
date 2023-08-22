@@ -32,4 +32,33 @@ class UserProvider {
     }
   }
 
+  Future<dynamic?> getDashborad(url) async {
+    try{
+      var response = await ApiHandler.get(url);
+      print("here = ${response}");
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return null;
+    }
+  }
+  Future<dynamic?> getAllDoctor(url) async {
+    try{
+      var response = await ApiHandler.get(url);
+      print("here = ${response}");
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return null;
+    }
+  }
+
 }

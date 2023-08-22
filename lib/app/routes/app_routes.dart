@@ -23,6 +23,8 @@ abstract class Routes {
   static const NOTIFICATION = _Paths.NOTIFICATION;
   static const DOCTORBYDEPARTMENTS = _Paths.DOCTORBYDEPARTMENTS;
   static const DOCTORDETAILS = _Paths.DOCTORDETAILS;
+  static const ADDAPPOINTMENT = _Paths.ADDAPPOINTMENT;
+  static const ALLDOCTORS = _Paths.ALLDOCTORS;
 }
 
 abstract class _Paths {
@@ -47,4 +49,6 @@ abstract class _Paths {
   static const NOTIFICATION = '/notification';
   static const DOCTORBYDEPARTMENTS = '/doctorbydepartments';
   static const DOCTORDETAILS = '/doctordetails';
+  static const ADDAPPOINTMENT = '/addappointment';
+  static const ALLDOCTORS = '/alldoctors';
 }
