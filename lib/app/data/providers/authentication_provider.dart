@@ -16,9 +16,9 @@ class AuthenticationProvider {
       return error;
     }
   }
-  Future<dynamic?> registerUser(Map<String, dynamic> data,url,fieldName,filePath) async {
+  Future<dynamic?> registerUser(Map<String, String> data,url,fieldName,filePath) async {
     try{
-      var response = await ApiHandler.postWithImage(url, body: data,parameterName: fieldName,imagePath: filePath);
+      var response = await ApiHandler.postWithImageNew(url, body: data,parameterName: fieldName,imagePath: filePath);
       if(response != null){
         return response;
       }else{

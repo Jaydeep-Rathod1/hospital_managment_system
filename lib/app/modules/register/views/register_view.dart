@@ -415,6 +415,7 @@ class RegisterView extends GetView<RegisterController> {
 
                                         // Get.offAllNamed(Routes.OTP,arguments: {'isResetPassword': false,});
                                       }else{
+                                        controller.loginbuttonController.reset();
                                         controls.onStepContinue!();
                                       }
 

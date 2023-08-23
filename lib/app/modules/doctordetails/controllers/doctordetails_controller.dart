@@ -11,6 +11,7 @@ class DoctordetailsController extends GetxController {
     if (arguments != null && arguments.containsKey("departmentModel")) {
       userModel = arguments["departmentModel"];
       doctorNameTitle.value = userModel!.firstname.toString();
+      print("doctor name = ${doctorNameTitle.value}");
       refresh();
     }
   }

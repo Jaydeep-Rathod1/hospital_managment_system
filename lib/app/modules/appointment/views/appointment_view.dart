@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:hospital_managment_system/app/resources/color_manager.dart';
 
 import '../controllers/appointment_controller.dart';
 
@@ -10,15 +11,22 @@ class AppointmentView extends GetView<AppointmentController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AppointmentView'),
+        elevation: 0,
+        title: const Text('Book Appointment'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'AppointmentView is working',
-          style: TextStyle(fontSize: 20),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20.0,top: 20.0,bottom: 20.0),
+          child: Column(
+            children: [
+
+
+            ],
+          ),
         ),
       ),
+
     );
   }
 }

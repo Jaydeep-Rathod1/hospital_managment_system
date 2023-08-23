@@ -100,6 +100,7 @@ class ApiHandler {
         );
       }*/
       if (imagePath != null) {
+        print("imagepath not null");
         request.files.add(
           await http.MultipartFile.fromPath(
             parameterName ?? 'profile_picture', // Field name in the form
@@ -111,12 +112,65 @@ class ApiHandler {
 
       var response = await request.send();
       print("response = ${response.statusCode}");
-      // print("response - ${response.stream.bytesToString()}");
+      print("response - ${response.stream.bytesToString()}");
+      print("response = ${response.runtimeType}");
+
       if (response.statusCode == 200) {
         return json.decode(await response.stream.bytesToString());
       } else {
         print("else eroorr");
         return ErrorHandler(code: response.statusCode);
+      }
+    } on FormatException {
+      print("FormatException");
+      throw ErrorHandler(message: "Bad Response Format");
+    } on SocketException {
+      print("SocketException");
+      throw ErrorHandler(message: "Internet Connection Failure");
+    } on HttpException {
+      print("HttpException");
+      throw ErrorHandler(message: "Connection Problem");
+    } on Exception catch (ex) {
+      print("ex = ${ex}");
+      throw ErrorHandler(message: ex.toString().replaceAll("Exception: ", ""));
+    }
+  }
+
+  static Future<dynamic> postWithImageNew(url, {Map<String, String>? body,imagePath,String? parameterName}) async {
+    print("url = $url");
+    print("body = $body");
+    print("imagePath = $imagePath");
+    print("parameterName = $parameterName");
+
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(url),
+      );
+      Map<String, String> headers = {"Content-type": "multipart/form-data"};
+      request.files.add(
+        http.MultipartFile(
+          'profile_picture',
+          imagePath.readAsBytes().asStream(),
+          imagePath.lengthSync(),
+          filename: imagePath.path.split('/').last,
+        ),
+      );
+      request.headers.addAll(headers);
+      request.fields.addAll(body!);
+      print("request: " + request.toString());
+      var res = await request.send();
+      print("res = ${res}");
+      http.Response response = await http.Response.fromStream(res);
+      print("response = ${response}");
+      if (response.statusCode == 200) {
+        // Convert response body to JSON
+        Map<String, dynamic> responseData = json.decode(response.body);
+        return responseData;
+      } else {
+        // Map<String, dynamic> responseData = json.decode(response.body);
+        // return responseData;
+        print("Request failed with status: ${response.statusCode}");
       }
     } on FormatException {
       print("FormatException");

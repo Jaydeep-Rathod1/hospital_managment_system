@@ -1,7 +1,11 @@
 
 class UrlManager{
-  static String MAIN_URL = "http://192.168.0.108/hms/";
+  static String MAIN_URL = "http://192.168.0.105/hms/";
   static String BASE_URL = "${MAIN_URL}api/";
+  static String DEPARTMENTPHOTO_URL = "${MAIN_URL}admin/images/department_img/";
+  static String DOCTORPHOTO_URL = "${MAIN_URL}admin/images/doctor_img/";
+  static String PATIENTPHOTO_URL = "${MAIN_URL}admin/images/patient_img/";
+  // static String DEPARTMENTPHOTO_URL = "http://192.168.0.108/hms/admin/images/department_img/";
   static String LOGIN_URL = "${BASE_URL}login.php";
   static String REGISTER_URL = "${BASE_URL}register.php";
   static String FORGOTPASSWORD_URL = "${BASE_URL}forgot_password.php";

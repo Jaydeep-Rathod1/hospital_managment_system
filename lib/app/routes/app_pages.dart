@@ -12,6 +12,8 @@ import '../modules/doctorbydepartments/bindings/doctorbydepartments_binding.dart
 import '../modules/doctorbydepartments/views/doctorbydepartments_view.dart';
 import '../modules/doctordetails/bindings/doctordetails_binding.dart';
 import '../modules/doctordetails/views/doctordetails_view.dart';
+import '../modules/editprofileview/bindings/editprofileview_binding.dart';
+import '../modules/editprofileview/views/editprofileview_view.dart';
 import '../modules/forgotpassword/bindings/forgotpassword_binding.dart';
 import '../modules/forgotpassword/views/forgotpassword_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -119,7 +121,6 @@ class AppPages {
       page: () => const DepartmentsView(),
       binding: DepartmentsBinding(),
     ),
-
     GetPage(
       name: _Paths.NOTIFICATION,
       page: () => const NotificationView(),
@@ -144,6 +145,11 @@ class AppPages {
       name: _Paths.ALLDOCTORS,
       page: () => const AlldoctorsView(),
       binding: AlldoctorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITPROFILEVIEW,
+      page: () => const EditprofileviewView(),
+      binding: EditprofileviewBinding(),
     ),
   ];
 }

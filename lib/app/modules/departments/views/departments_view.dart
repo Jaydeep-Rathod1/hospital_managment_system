@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/custom_loader.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
@@ -45,20 +47,53 @@ class DepartmentsView extends GetView<DepartmentsController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Container(
+                    //     height: 80,
+                    //     width: 80,
+                    //     alignment: Alignment.center,
+                    //     decoration: BoxDecoration(
+                    //         color: ColorManager.lightPrimary,
+                    //         borderRadius: BorderRadius.circular(10)
+                    //     ),
+                    //     child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
                     Container(
-                        height: 80,
-                        width: 80,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: ColorManager.lightPrimary,
-                            borderRadius: BorderRadius.circular(10)
+                      height: 80,
+                      width: 80,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          color: ColorManager.lightPrimary,
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: UrlManager.DEPARTMENTPHOTO_URL+controller.departmentList.value[index].departmentPicture!, // Replace with your image URL
+                        color: ColorManager.primary,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+
+                            ),
+                          ),
                         ),
-                        child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
+                        placeholder: (context, url) => Container(
+                          height: 50,
+                          width: 50,
+                          padding: EdgeInsets.all(25),
+                          child: CircularProgressIndicator(color: ColorManager.primary,),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
                     SizedBox(height: 10,),
                     Expanded(
                       child: CustomText(
                         text: controller.departmentList.value[index].name.toString(),
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
+                        fontSize: FontSize.s12,
                         color: ColorManager.primary,
                         textAlign: TextAlign.center,
                         maxLines: 2,

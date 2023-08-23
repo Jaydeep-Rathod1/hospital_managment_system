@@ -4,19 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/data/repositories/authentication_repository.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
-import 'package:hospital_managment_system/app/resources/extenstion_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/resources/url_manager.dart';
-import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
-import 'package:hospital_managment_system/app/widgets/textformfield_custom.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
-
-
-class RegisterController extends GetxController {
+class EditprofileviewController extends GetxController {
   final AuthenticationRepository _authenticationRepository = AuthenticationRepository();
   RxInt activeCurrentStep = 0.obs;
   List<GlobalKey<FormState>> formKeys = List.generate(
@@ -199,58 +194,51 @@ class RegisterController extends GetxController {
   }
   submitForm()async{
     if (formKeys[activeCurrentStep.value].currentState!.validate()){
-    var firstname =firstNameController.value.text.toString();
-    var lastname =lastNameController.value.text.toString();
-    var email =emailController.value.text.toString();
-    var mobileno =mobilenoController.value.text.toString();
-    var address =addressController.value.text.toString();
-    var dob =selectedStartDate;
-    var gender = selectedGender.value.toString();
-    var bloodGroup = selected.value.toString();
+      var firstname =firstNameController.value.text.toString();
+      var lastname =lastNameController.value.text.toString();
+      var email =emailController.value.text.toString();
+      var mobileno =mobilenoController.value.text.toString();
+      var address =addressController.value.text.toString();
+      var dob =selectedStartDate;
+      var gender = selectedGender.value.toString();
+      var bloodGroup = selected.value.toString();
 
-    print(firstname);
-    print(lastname);
-    print(email);
-    print(mobileno);
-    print(address);
-    print(dob);
-    print(gender);
-    print(bloodGroup);
-    print(galleryFile.value);
-    Map<String,String> params = {
-      "firstname":firstname,
-      "lastname":lastname,
-      "email":email,
-      "mobile_no":mobileno,
-      "address":address,
-      "date_of_birth":dob.toString(),
-      "gender":gender,
-      "blood_group":bloodGroup,
-    };
-    try{
-      String url = UrlManager.REGISTER_URL;
-      var response = await _authenticationRepository.regsiterUser(params,url,"profile_picture",galleryFile.value! );
-      print("response on main = ${response.toString()}");
-      loginbuttonController.reset();
-      if(response['status'] == "true"){
-        final dataToSend = {
-          'otp':  response['otp'],
-          'user_id': response['user_id'],
-          'isReset': false
-        };
-        formKeys[0].currentState?.reset();
-        formKeys[1].currentState?.reset();
-        formKeys[2].currentState?.reset();
-        loginbuttonController.success();
-        await Future.delayed(Duration(milliseconds: 100)).then((value) {
-          Get.toNamed(Routes.OTP,arguments:dataToSend);
-          loginbuttonController.reset();
-        });
-      }else{
-        print("in else");
+      Map<String,dynamic> params = {
+        "firstname":firstname,
+        "lastname":lastname,
+        "email":email,
+        "mobile_no":mobileno,
+        "address":address,
+        "date_of_birth":dob,
+        "gender":gender,
+        "blood_group":bloodGroup,
+      };
+      try{
+        // String url = UrlManager.REGISTER_URL;
+        // var response = await _authenticationRepository.regsiterUser(params,url,"profile_picture",galleryFile.value! );
+        // print("response = ${response.toString()}");
+        //
+        // if(response['status'] == "true"){
+        //   loginbuttonController.success();
+        //   Get.offNamed('/home');
+        // }else{
+        //   print("in else");
+        //   Get.snackbar(
+        //     'Error',
+        //     response['message'],
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: Colors.red,
+        //     colorText: Colors.white,
+        //     margin: EdgeInsets.all(20),
+        //     duration: Duration(seconds: 3),
+        //   );
+        // }
+      } catch (error) {
+        print("Error: $error");
+        loginbuttonController.reset();
         Get.snackbar(
           'Error',
-          response['message'],
+          "",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -258,19 +246,6 @@ class RegisterController extends GetxController {
           duration: Duration(seconds: 3),
         );
       }
-    } catch (error) {
-      print("Error: $error");
-      loginbuttonController.reset();
-      Get.snackbar(
-        'Error',
-        "",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        margin: EdgeInsets.all(20),
-        duration: Duration(seconds: 3),
-      );
-    }
     }else{
       print("in else");
       loginbuttonController.reset();

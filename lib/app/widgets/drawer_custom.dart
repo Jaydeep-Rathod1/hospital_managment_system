@@ -49,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                             SizedBox(height: 8,),
                             InkWell(
                                 onTap: (){
-                                  Get.toNamed(Routes.PROFILE);
+                                  Get.toNamed(Routes.EDITPROFILEVIEW);
                                 },
                                 child: CustomText(text:"View / Edit Profile",maxLines: 2,fontSize: FontSize.s12,color: ColorManager.primary,)),
                           ],

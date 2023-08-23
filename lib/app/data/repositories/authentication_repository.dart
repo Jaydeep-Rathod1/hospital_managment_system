@@ -8,7 +8,7 @@ class AuthenticationRepository {
     return  _apiProvider.loginUser(data,url);
   }
 
-  Future<dynamic?> regsiterUser(Map<String, dynamic> data,url,fieldName,filePath) async {
+  Future<dynamic?> regsiterUser(Map<String, String> data,url,fieldName,filePath) async {
     return  _apiProvider.registerUser(data,url,fieldName,filePath);
   }
 
