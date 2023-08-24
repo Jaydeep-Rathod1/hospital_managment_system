@@ -26,6 +26,8 @@ abstract class Routes {
   static const ADDAPPOINTMENT = _Paths.ADDAPPOINTMENT;
   static const ALLDOCTORS = _Paths.ALLDOCTORS;
   static const EDITPROFILEVIEW = _Paths.EDITPROFILEVIEW;
+  static const DOCTORDETAILSVIEW = _Paths.DOCTORDETAILSVIEW;
+
 }
 
 abstract class _Paths {
@@ -53,4 +55,5 @@ abstract class _Paths {
   static const ADDAPPOINTMENT = '/addappointment';
   static const ALLDOCTORS = '/alldoctors';
   static const EDITPROFILEVIEW = '/editprofileview';
+  static const DOCTORDETAILSVIEW = '/doctordetailsview';
 }

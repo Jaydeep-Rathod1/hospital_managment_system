@@ -236,6 +236,7 @@ class RegisterController extends GetxController {
         final dataToSend = {
           'otp':  response['otp'],
           'user_id': response['user_id'],
+          'userData': response['data'],
           'isReset': false
         };
         formKeys[0].currentState?.reset();

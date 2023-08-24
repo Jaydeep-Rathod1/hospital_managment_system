@@ -39,9 +39,6 @@ Color shadeColor(Color color, double factor) => Color.fromRGBO(
 
 ThemeData getApplicationTheme() {
   return ThemeData(
-      // main colors of the app
-
-
       colorScheme: ColorScheme.light().copyWith(
         background: Colors.white, // Set the desired background color
       ),
@@ -195,8 +192,29 @@ ThemeData getApplicationTheme() {
         ),
 
       ),
-    listTileTheme: ListTileThemeData(
-      horizontalTitleGap: -1,//here adjust based on your need
-    ),
+      listTileTheme: ListTileThemeData(
+        horizontalTitleGap: -1,//here adjust based on your need
+      ),
+    datePickerTheme: DatePickerThemeData(
+      headerBackgroundColor: ColorManager.primary,
+      backgroundColor: ColorManager.white,
+      dayBackgroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return ColorManager.primary; // Color for selected day
+          }
+          return Colors.white; // Default color for other days
+        },
+      ),
+
+      todayBackgroundColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return ColorManager.primary; // Color for selected day
+          }
+          // return Colors.white; // Default color for other days
+        },
+      ),
+    )
   );
 }

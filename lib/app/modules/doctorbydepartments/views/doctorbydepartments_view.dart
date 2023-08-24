@@ -54,7 +54,8 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                                       height: 90,
                                       width: 90,
                                       child: CachedNetworkImage(
-                                        imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80', // Replace with your image URL
+                                        imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                                        // imageUrl: UrlManager.DOCTORPHOTO_URL+controller.doctorByDepartmentList[index].profilePicture!, // Replace with your image URL// Replace with your image URL
                                         imageBuilder: (context, imageProvider) => Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),

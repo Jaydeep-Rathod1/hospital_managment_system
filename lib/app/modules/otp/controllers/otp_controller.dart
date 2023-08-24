@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hospital_managment_system/app/data/model/user_model.dart';
 import 'package:hospital_managment_system/app/data/repositories/authentication_repository.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
+import 'package:hospital_managment_system/app/resources/storage_manager.dart';
 import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 
@@ -13,6 +15,8 @@ class OtpController extends GetxController {
   RxString matchedString = "".obs;
  Rx<Map<String, dynamic>> receivedData = Rx<Map<String, dynamic>>({});
   final AuthenticationRepository _authenticationRepository = AuthenticationRepository();
+  final StorageManager _storage = StorageManager();
+  final userModel = UserModel().obs;
   @override
   void onInit() {
     super.onInit();
@@ -26,6 +30,10 @@ class OtpController extends GetxController {
     otp.value = receivedData.value['otp'].toString() ?? '';
     userid.value = receivedData.value['user_id'] ?? '';
     isResetPassword.value = receivedData.value['isReset'] ?? false;
+    if(!isResetPassword.value){
+      var userDetails = receivedData.value['userData'];
+      userModel.value = UserModel.fromJson(userDetails);
+    }
     Get.snackbar(
       'OTP',
       otp.value,
@@ -74,6 +82,10 @@ class OtpController extends GetxController {
         }
         // Get.offNamed(Routes.RESETPASSWORD);
       }else{
+
+
+      await _storage.storeModel('userData',userModel.value);
+      await _storage.setValue("isLogin", true);
       Get.offNamed(Routes.REGISTER_COMPLETE);
     }
   }

@@ -120,22 +120,27 @@ class HomeView extends GetView<HomeController> {
                     shrinkWrap: true,
                     itemCount: controller.departmentList.value.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                              height: 80,
-                              width: 80,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightPrimary,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
-                          SizedBox(height: 10,),
-                          CustomText(text: controller.departmentList[index].name!,fontWeight: FontWeight.w500,color: ColorManager.primary,)
-                        ],
+                      return InkWell(
+                        onTap: (){
+                          Get.toNamed(Routes.DOCTORBYDEPARTMENTS,arguments: {"departmentModel" : controller.departmentList[index]});
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                height: 80,
+                                width: 80,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: ColorManager.lightPrimary,
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
+                            SizedBox(height: 10,),
+                            CustomText(text: controller.departmentList[index].name!,fontWeight: FontWeight.w500,color: ColorManager.primary,)
+                          ],
+                        ),
                       );
                     },
                   ),

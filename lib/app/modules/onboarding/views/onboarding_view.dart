@@ -16,7 +16,7 @@ class OnboardingView extends GetView<OnboardingController> {
         child: Column(
           children: [
             GestureDetector(
-              onTap: _controller.onSkip(),
+              onTap: _controller.onSkip,
               child: Container(
                 padding: EdgeInsets.all(20),
                 alignment: Alignment.topRight,

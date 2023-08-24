@@ -1,6 +1,6 @@
 
 class UrlManager{
-  static String MAIN_URL = "http://192.168.0.105/hms/";
+  static String MAIN_URL = "http://192.168.0.108/hms/";
   static String BASE_URL = "${MAIN_URL}api/";
   static String DEPARTMENTPHOTO_URL = "${MAIN_URL}admin/images/department_img/";
   static String DOCTORPHOTO_URL = "${MAIN_URL}admin/images/doctor_img/";

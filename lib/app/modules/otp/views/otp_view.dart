@@ -68,8 +68,8 @@ class OtpView extends GetView<OtpController> {
                         controller.matchedString.value = verificationCode;
                       }, // end onSubmit
                     ),
-                    SizedBox(height: 20,),
-                    Row(
+                    // SizedBox(height: 20,),
+                   /* Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -97,8 +97,8 @@ class OtpView extends GetView<OtpController> {
                         ),
                         CustomText(text: "00:00",fontSize: FontSize.s14,color: ColorManager.primary,),
                       ],
-                    ),
-                  SizedBox(height: 40,),
+                    ),*/
+                  SizedBox(height: 60,),
                   ElevatedButtonCustom(titleText: "Verify",
                       onPressed: (){
                     controller.submitOTP();

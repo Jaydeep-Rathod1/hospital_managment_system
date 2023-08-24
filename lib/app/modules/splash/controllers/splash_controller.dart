@@ -15,6 +15,7 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
     Future.delayed(const Duration(seconds: 3), () async{
       isLogin.value =await _storage.getValue('isLogin') ?? false;
       isOnboarding.value =await _storage.getValue('isOnboarding') ?? false;
+      print("on = ${isOnboarding.value}");
       if(isOnboarding.value)
         {
           if (isLogin.value) {
