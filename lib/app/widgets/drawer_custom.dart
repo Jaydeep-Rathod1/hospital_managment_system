@@ -183,6 +183,25 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
+                    child: Image.asset("assets/icons/feedback.png",height: 25,width: 25,color: ColorManager.primary,),
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: CustomText(text: "Send Feedback",fontSize: FontSize.s16,fontWeight: FontWeight.w500,color: ColorManager.primary,),
+                  ),
+                  onTap: () {
+                    Get.toNamed(Routes.FEEDBACK);
+                    // Perform desired actions for Home
+                  },
+                ),
+                Divider(
+                  height: 5,
+                  indent: 0,
+                  thickness: 1,
+                ),
+                ListTile(
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Image.asset("assets/icons/support.png",height: 25,width: 25,color: ColorManager.primary,),
                   ),
                   title: Padding(

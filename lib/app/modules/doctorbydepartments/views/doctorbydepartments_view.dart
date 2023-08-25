@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/custom_loader.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
@@ -54,8 +55,8 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                                       height: 90,
                                       width: 90,
                                       child: CachedNetworkImage(
-                                        imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-                                        // imageUrl: UrlManager.DOCTORPHOTO_URL+controller.doctorByDepartmentList[index].profilePicture!, // Replace with your image URL// Replace with your image URL
+                                        // imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                                        imageUrl: UrlManager.DOCTORPHOTO_URL+controller.doctorByDepartmentList[index].profilePicture!, // Replace with your image URL// Replace with your image URL
                                         imageBuilder: (context, imageProvider) => Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10),
@@ -161,13 +162,14 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                                     children: [
                                       Container(
                                         height: 35,
-                                        width: 110,
+                                        width: 120,
 
                                         child: ElevatedButtonCustom(
-                                            titleText: "Book Now",
+                                            titleText: "BOOK NOW",
                                             fontSize: 14,
                                             padding: EdgeInsets.zero,
                                             onPressed: (){
+                                              Get.toNamed(Routes.APPOINTMENT,arguments: {"userData" : controller.doctorByDepartmentList[index]});
                                               // Get.offAllNamed(Routes.LOGIN);
                                             }),
                                       )

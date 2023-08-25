@@ -11,13 +11,13 @@ class AppointmentController extends GetxController with GetSingleTickerProviderS
   Rx<List<String>> morningtimeslots = Rx<List<String>>([]);
   Rx<List<String>> afternoontimeslots = Rx<List<String>>([]);
   Rx<List<String>> eveningtimeslots = Rx<List<String>>([]);
-  int isSelectedindexMorning = -1;
-  int isSelectedindexAfternoon = -1;
-  int isSelectedindexEvening = -1;
+  Rx<int> isSelectedindexMorning = Rx(-1);
+  Rx<int> isSelectedindexAfternoon = Rx(-1);
+  Rx<int> isSelectedindexEvening = Rx(-1);
   TextEditingController dateinput = TextEditingController();
-  TabController? tabController;
+
   var tabIndex = 0.obs;
-  var pageController = PageController();
+  var pageController = PageController(initialPage: 0);
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
@@ -27,7 +27,7 @@ class AppointmentController extends GetxController with GetSingleTickerProviderS
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    tabController = TabController(vsync: this, length: 3);
+
     createbookTimeSlot();
 
   }
@@ -94,110 +94,22 @@ class AppointmentController extends GetxController with GetSingleTickerProviderS
 
   }
   void setSelectedMorningIndex(int index) {
-    selectedMorningIndex.value = index;
+    isSelectedindexMorning.value = index;
+    isSelectedindexAfternoon.value = -1;
+    isSelectedindexEvening.value = -1;
   }
 
   void setSelectedAfternoonIndex(int index) {
-    selectedAfternoonIndex.value = index;
+    isSelectedindexAfternoon.value = index;
+    isSelectedindexMorning.value = -1;
+    isSelectedindexEvening.value = -1;
   }
 
   void setSelectedEveningIndex(int index) {
-    selectedEveningIndex.value = index;
+    isSelectedindexEvening.value = index;
+    isSelectedindexAfternoon.value = -1;
+    isSelectedindexMorning.value = -1;
   }
-  morningSlots(){
-      Obx(() => GridView.builder(
-          padding: EdgeInsets.all(20),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              childAspectRatio: 4 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          itemCount: morningtimeslots.value.length,
-          itemBuilder: (BuildContext ctx, index) {
-            bool isEnabled = isTimeSlotEnabled(morningtimeslots.value[index]);
 
-            return InkWell(
-              onTap: isEnabled? (){
-                print("isEnabled = ${isEnabled}");
-
-                isSelectedindexAfternoon = -1;
-                isSelectedindexMorning = index;
-                isSelectedindexEvening = -1;
-
-              }:null,
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    border: Border.all(color: isEnabled? isSelectedindexMorning == index? Colors.blueAccent:Colors.amber:Colors.grey),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(morningtimeslots.value[index]),
-              ),
-            );
-          }));
-  }
-  afternoonSlots(){
-    GridView.builder(
-          padding: EdgeInsets.all(20),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              childAspectRatio: 4 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          itemCount: afternoontimeslots.value.length,
-          itemBuilder: (BuildContext ctx, index) {
-            bool isPickedDateToday = DateFormat('yyyy-MM-dd').format(selectedDate!) ==
-                DateFormat('yyyy-MM-dd').format(DateTime.now());
-            bool isEnabled = isTimeSlotEnabled(afternoontimeslots.value[index]);
-            return InkWell(
-              onTap:isEnabled? (){
-
-                  isSelectedindexAfternoon = index;
-                  isSelectedindexMorning = -1;
-                  isSelectedindexEvening = -1;
-
-                print("isEnabled = ${isEnabled}");
-              }:null,
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  // color: Colors.amber,
-                    border: Border.all(color: isEnabled? isSelectedindexAfternoon == index? Colors.blueAccent:Colors.amber:Colors.grey),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(afternoontimeslots.value[index]),
-              ),
-            );
-          });
-  }
-  eveningSlots(){
-    GridView.builder(
-          padding: EdgeInsets.all(20),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              childAspectRatio: 4 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          itemCount: eveningtimeslots.value.length,
-          itemBuilder: (BuildContext ctx, index) {
-            bool isEnabled = isTimeSlotEnabled(eveningtimeslots.value[index]);
-            return InkWell(
-              onTap:isEnabled? (){
-                print("isEnabled = ${isEnabled}");
-
-                  isSelectedindexAfternoon = -1;
-                  isSelectedindexMorning = -1;
-                  isSelectedindexEvening = index;
-
-              }:null,
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(color: isEnabled?isSelectedindexEvening == index? Colors.blueAccent:Colors.amber:Colors.grey),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Text(eveningtimeslots.value[index]),
-              ),
-            );
-          });
-  }
 
 }

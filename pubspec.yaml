@@ -17,6 +17,13 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   http: ^1.1.0
   cached_network_image: ^3.2.3
+  flutter_rating_bar: ^4.0.1
+  firebase_core:
+  firebase_messaging:
+  flutter_local_notifications:
+  path_provider:
+  permission_handler:
+  rxdart:
   intl:
   flutter: 
     sdk: flutter

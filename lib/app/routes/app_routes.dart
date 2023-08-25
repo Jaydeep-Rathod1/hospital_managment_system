@@ -27,7 +27,10 @@ abstract class Routes {
   static const ALLDOCTORS = _Paths.ALLDOCTORS;
   static const EDITPROFILEVIEW = _Paths.EDITPROFILEVIEW;
   static const DOCTORDETAILSVIEW = _Paths.DOCTORDETAILSVIEW;
-
+  static const MYAPPOINTMENT = _Paths.MYAPPOINTMENT;
+  static const FEEDBACK = _Paths.FEEDBACK;
+  static const PRIVACYPOLICY = _Paths.PRIVACYPOLICY;
+  static const TERMSANDCONDITION = _Paths.TERMSANDCONDITION;
 }
 
 abstract class _Paths {
@@ -56,4 +59,8 @@ abstract class _Paths {
   static const ALLDOCTORS = '/alldoctors';
   static const EDITPROFILEVIEW = '/editprofileview';
   static const DOCTORDETAILSVIEW = '/doctordetailsview';
+  static const MYAPPOINTMENT = '/myappointment';
+  static const FEEDBACK = '/feedback';
+  static const PRIVACYPOLICY = '/privacypolicy';
+  static const TERMSANDCONDITION = '/termsandcondition';
 }
