@@ -23,4 +23,8 @@ class AuthenticationRepository {
   Future<dynamic?> resetPassword(Map<String, dynamic> data,url) async {
     return  _apiProvider.resetPassword(data,url);
   }
+
+  Future<dynamic?> editUser(Map<String, String> data,url,fieldName,filePath) async {
+    return  _apiProvider.editUser(data,url,fieldName,filePath);
+  }
 }

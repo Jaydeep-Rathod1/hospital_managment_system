@@ -86,6 +86,7 @@ class TextFormFieldCustomState extends State<TextFormFieldCustom> {
         onChanged: widget.onChanged,
         onTap: widget.onTap,
         enabled: widget.enabled,
+        
         maxLength: widget.maxLength,
         style: TextStyle(
             fontSize: FontSize.s14,

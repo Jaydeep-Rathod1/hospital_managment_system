@@ -105,6 +105,32 @@ class DoctordetailsView extends GetView<DoctordetailsController> {
                                 child: Padding(
                                   padding: EdgeInsets.all(8),
                                   child: CustomText(
+                                    text: "Department",
+                                    fontSize: FontSize.s15,
+                                    maxLines: 10,
+                                  ),
+                                )// Data cell content
+                            ),
+                            TableCell(
+                                child: Padding(
+                                  padding:const EdgeInsets.all(8),
+                                  child: CustomText(
+                                    text: controller.usermodel!.departmentName ?? "",
+                                    fontSize: FontSize.s15,
+                                    maxLines: 10,
+                                    fontWeight: FontWeight.normal,
+
+                                  ),
+                                )// Data cell content
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            const TableCell(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8),
+                                  child: CustomText(
                                     text: "Experience",
                                     fontSize: FontSize.s15,
                                     maxLines: 10,

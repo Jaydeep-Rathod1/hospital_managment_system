@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/extenstion_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
@@ -296,6 +297,10 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                       ),
                       SizedBox(height: 10,),
+                      Obx(() => 
+                      controller.dusplayImageError.value?
+                        CustomText(text: "Please choose image",color: ColorManager.error,fontSize: 12,): Container()
+                      ),
                       Obx(() {
                         final galleryFile = controller.galleryFile.value;
                         if (galleryFile != null) {

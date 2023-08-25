@@ -23,7 +23,7 @@ class ResetpasswordView extends GetView<ResetpasswordController> {
           backgroundColor: Colors.grey.shade50,
           elevation: 0,
 
-          title: CustomText(text: 'Reset Password',fontSize: 18,color: ColorManager.primary,),
+          title:controller.isReset.value? CustomText(text: 'Reset Password',fontSize: 18,color: ColorManager.primary,):CustomText(text: 'Set Password',fontSize: 18,color: ColorManager.primary,),
           iconTheme: IconThemeData(
             color: ColorManager.primary, //change your color here
           ),

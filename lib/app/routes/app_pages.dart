@@ -179,5 +179,6 @@ class AppPages {
       page: () => const TermsandconditionView(),
       binding: TermsandconditionBinding(),
     ),
+
   ];
 }

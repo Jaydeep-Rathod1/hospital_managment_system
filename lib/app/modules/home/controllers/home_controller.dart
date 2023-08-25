@@ -32,6 +32,7 @@ class HomeController extends GetxController {
         List<dynamic> userdata = response['doctordata'];
         userList.value =userdata.map((e) =>UserModel.fromJson(e)).toList();
         update();
+
         isLoading.value = false;
       }else{
         isLoading.value = false;

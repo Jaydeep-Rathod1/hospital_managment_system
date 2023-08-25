@@ -197,8 +197,10 @@ class RegisterController extends GetxController {
 
 
   }
+
+  Rx<bool> dusplayImageError = false.obs;
   submitForm()async{
-    if (formKeys[activeCurrentStep.value].currentState!.validate()){
+    if (formKeys[activeCurrentStep.value].currentState!.validate() && galleryFile.value !=null ){
     var firstname =firstNameController.value.text.toString();
     var lastname =lastNameController.value.text.toString();
     var email =emailController.value.text.toString();
@@ -274,7 +276,9 @@ class RegisterController extends GetxController {
     }
     }else{
       print("in else");
+      dusplayImageError.value = true;
       loginbuttonController.reset();
+      refresh();
     }
     print("on submut form");
   }

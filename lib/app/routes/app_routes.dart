@@ -31,6 +31,7 @@ abstract class Routes {
   static const FEEDBACK = _Paths.FEEDBACK;
   static const PRIVACYPOLICY = _Paths.PRIVACYPOLICY;
   static const TERMSANDCONDITION = _Paths.TERMSANDCONDITION;
+  static const CREATEPASSWORD = _Paths.CREATEPASSWORD;
 }
 
 abstract class _Paths {
@@ -63,4 +64,5 @@ abstract class _Paths {
   static const FEEDBACK = '/feedback';
   static const PRIVACYPOLICY = '/privacypolicy';
   static const TERMSANDCONDITION = '/termsandcondition';
+  static const CREATEPASSWORD = '/createpassword';
 }

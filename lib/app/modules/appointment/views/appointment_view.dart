@@ -54,7 +54,7 @@ class AppointmentView extends GetView<AppointmentController>  {
                   );
                   if(pickedDate != null ){
                     print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                    String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
                     print(formattedDate);
 
                     // controller.tabIndex = 0.obs;
@@ -63,6 +63,10 @@ class AppointmentView extends GetView<AppointmentController>  {
                     controller.isDisplaytab.value = true;
                     controller.selectedDate = pickedDate;
                     controller.dateinput.text = formattedDate; //set output date to TextField value.
+                    controller.isSelectedindexMorning.value = -1;
+                    controller.isSelectedindexAfternoon.value = -1;
+                    controller.isSelectedindexEvening.value = -1;
+
                   }else{
                     print("Date is not selected");
                   }
@@ -105,88 +109,87 @@ class AppointmentView extends GetView<AppointmentController>  {
                 controller.tabIndex.value = index;
               },
               children: [
-                controller.isDisplaytab.value? GridView.builder(
+                controller.isDisplaytab.value? Obx(() => GridView.builder(
                     padding: EdgeInsets.all(20),
                     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 100,
-                        childAspectRatio: 4 / 2,
+                        childAspectRatio: 4.5 / 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
                     itemCount: controller.morningtimeslots.value.length,
                     itemBuilder: (BuildContext ctx, index) {
                       bool isEnabled = controller.isTimeSlotEnabled(controller.morningtimeslots.value[index]);
-                      return  InkWell(
-                        onTap: isEnabled? (){
+                      return  Obx(() => InkWell(
+                        onTap: isEnabled? ()async{
                           print("isEnabled = ${isEnabled}");
 
-                          controller.setSelectedMorningIndex(index);
-
+                          await controller.setSelectedMorningIndex(index);
+                          controller.selectedTime!.value = controller.afternoontimeslots.value[index];
                         }:null,
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             // color: Colors.amber,
-                              border: Border.all(color: isEnabled? controller.isSelectedindexMorning.value == index? Colors.blueAccent:Colors.amber:Colors.grey),
+                              border: Border.all(color: isEnabled? controller.isSelectedindexMorning.value == index? Colors.green:ColorManager.primary:Colors.grey),
                               borderRadius: BorderRadius.circular(15)),
-                          child: Text(controller.morningtimeslots.value[index]),
-                        ),);
-                    }):Container(),
+                          child: CustomText(text:controller.morningtimeslots.value[index],fontSize: 14,color:isEnabled?controller.isSelectedindexMorning.value == index? Colors.green:ColorManager.primary:Colors.grey),
+                        ),));
+                    })):Container(),
 
-                controller.isDisplaytab.value?GridView.builder(
+                controller.isDisplaytab.value?Obx(() => GridView.builder(
                     padding: EdgeInsets.all(20),
                     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 100,
-                        childAspectRatio: 4 / 2,
+                        childAspectRatio: 4.5 / 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
                     itemCount: controller.afternoontimeslots.value.length,
                     itemBuilder: (BuildContext ctx, index) {
-                      bool isPickedDateToday = DateFormat('yyyy-MM-dd').format(controller.selectedDate!) ==
-                          DateFormat('yyyy-MM-dd').format(DateTime.now());
+                      // bool isPickedDateToday = DateFormat('yyyy-MM-dd').format(controller.selectedDate!) ==
+                      //     DateFormat('yyyy-MM-dd').format(DateTime.now());
                       bool isEnabled = controller.isTimeSlotEnabled(controller.afternoontimeslots.value[index]);
-                      return InkWell(
-                        onTap:isEnabled? (){
-
+                      return Obx(() => InkWell(
+                        onTap:isEnabled? ()async{
                           controller.setSelectedAfternoonIndex(index);
-
+                          controller.selectedTime!.value = controller.afternoontimeslots.value[index];
                           print("isEnabled = ${isEnabled}");
                         }:null,
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             // color: Colors.amber,
-                              border: Border.all(color: isEnabled? controller.isSelectedindexAfternoon.value == index? Colors.blueAccent:Colors.amber:Colors.grey),
+                              border: Border.all(color: isEnabled? controller.isSelectedindexAfternoon.value == index? Colors.green:ColorManager.primary:Colors.grey),
                               borderRadius: BorderRadius.circular(15)),
-                          child: Text(controller.afternoontimeslots.value[index]),
+                          child: CustomText(text:controller.afternoontimeslots.value[index],fontSize: 14,color:isEnabled?controller.isSelectedindexAfternoon.value == index? Colors.green:ColorManager.primary:Colors.grey),
                         ),
-                      );
-                    }):Container(),
-                controller.isDisplaytab.value? GridView.builder(
+                      ));
+                    })):Container(),
+                controller.isDisplaytab.value? Obx(() => GridView.builder(
                     padding: EdgeInsets.all(20),
                     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 100,
-                        childAspectRatio: 4 / 2,
+                        childAspectRatio: 4.5 / 2,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
                     itemCount: controller.eveningtimeslots.value.length,
                     itemBuilder: (BuildContext ctx, index) {
                       bool isEnabled = controller.isTimeSlotEnabled(controller.eveningtimeslots.value[index]);
-                      return InkWell(
-                        onTap:isEnabled? (){
+                      return Obx(() => InkWell(
+                        onTap:isEnabled? ()async{
                           print("isEnabled = ${isEnabled}");
 
-                          controller.setSelectedEveningIndex(index);
-
+                          await controller.setSelectedEveningIndex(index);
+                          print("selected = ${controller.eveningtimeslots.value[index]}");
                         }:null,
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              border: Border.all(color: isEnabled?controller.isSelectedindexEvening.value == index? Colors.blueAccent:Colors.amber:Colors.grey),
+                              border: Border.all(color: isEnabled?controller.isSelectedindexEvening.value == index? Colors.green:ColorManager.primary:Colors.grey),
                               borderRadius: BorderRadius.circular(15)),
-                          child: Text(controller.eveningtimeslots.value[index]),
+                          child: CustomText(text:controller.eveningtimeslots.value[index],fontSize: 14,color:isEnabled?controller.isSelectedindexEvening.value == index? Colors.green:ColorManager.primary:Colors.grey),
                         ),
-                      );
-                    }):Container(),
+                      ));
+                    })):Container(),
               ],
             ))
           ),
@@ -202,8 +205,7 @@ class AppointmentView extends GetView<AppointmentController>  {
               child: InkWell(
                 onTap: ()async{
 
-                  // var fcmToken = await FirebaseMessaging.instance.getToken();
-                  // print("fcmtoken = ${fcmToken}");
+                  controller.bookSlot();
                 },
                 child: Container(
                   alignment: Alignment.center,

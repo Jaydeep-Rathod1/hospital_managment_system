@@ -54,6 +54,7 @@ class OtpController extends GetxController {
           if(matchedString.value == otp.value){
             final dataToSend = {
               'user_id': userid.value,
+              'isReset':true
             };
             Get.toNamed(Routes.RESETPASSWORD,arguments:dataToSend );
             userid.value = "";
@@ -82,11 +83,47 @@ class OtpController extends GetxController {
         }
         // Get.offNamed(Routes.RESETPASSWORD);
       }else{
+      Map<String,dynamic> params = {
+        "user_id":userid.value,
+        "action":"otpmatched"
+      };
+      try{
+        var url = UrlManager.FORGOTPASSWORD_URL;
+        var response = await _authenticationRepository.forgotPassword(params,url);
+        print("response = ${response.toString()}");
+
+        if(response['status'] == "true"){
+          final dataToSend = {
+            'user_id': response['user_id'],
+            'isReset':false
+          };
+          Get.offNamed(Routes.RESETPASSWORD,arguments: dataToSend);
+          otp.value = "";
+        }else{
+          Get.snackbar(
+            'Error',
+            response['message'],
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 3),
+          );
+        }
+      } catch (error) {
+        print("Error: $error");
+        Get.snackbar(
+          'Error',
+          "",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          margin: EdgeInsets.all(20),
+          duration: Duration(seconds: 3),
+        );
+      }
 
 
-      await _storage.storeModel('userData',userModel.value);
-      await _storage.setValue("isLogin", true);
-      Get.offNamed(Routes.REGISTER_COMPLETE);
     }
   }
   resendOtp()async{

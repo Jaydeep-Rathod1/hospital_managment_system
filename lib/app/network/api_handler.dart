@@ -162,7 +162,8 @@ class ApiHandler {
       var res = await request.send();
       print("res = ${res}");
       http.Response response = await http.Response.fromStream(res);
-      print("response = ${response}");
+      print("response = ${response.body}");
+      print("response = ${response.statusCode}");
       if (response.statusCode == 200) {
         // Convert response body to JSON
         Map<String, dynamic> responseData = json.decode(response.body);
@@ -186,6 +187,117 @@ class ApiHandler {
       throw ErrorHandler(message: ex.toString().replaceAll("Exception: ", ""));
     }
   }
+
+  static Future<dynamic> postWithImageEdit(url, {Map<String, String>? body, imagePath, String? parameterName}) async {
+    print("url = $url");
+    print("body = $body");
+    print("imagePath = $imagePath");
+    print("parameterName = $parameterName");
+
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(url),
+      );
+      Map<String, String> headers = {"Content-type": "multipart/form-data"};
+
+      if (imagePath != null && imagePath.toString().isNotEmpty) {
+        request.files.add(
+          http.MultipartFile(
+            parameterName ?? 'profile_picture', // Use parameterName if provided, else use 'profile_picture'
+            imagePath.readAsBytes().asStream(),
+            imagePath.lengthSync(),
+            filename: imagePath.path.split('/').last,
+          ),
+        );
+      }
+
+      request.headers.addAll(headers);
+      request.fields.addAll(body!);
+      print("request: " + request.toString());
+      var res = await request.send();
+      print("res = ${res}");
+      http.Response response = await http.Response.fromStream(res);
+      print("response = ${response.body}");
+      print("response = ${response.statusCode}");
+      if (response.statusCode == 200) {
+        // Convert response body to JSON
+        Map<String, dynamic> responseData = json.decode(response.body);
+        return responseData;
+      } else {
+        print("Request failed with status: ${response.statusCode}");
+      }
+    } on FormatException {
+      print("FormatException");
+      throw ErrorHandler(message: "Bad Response Format");
+    } on SocketException {
+      print("SocketException");
+      throw ErrorHandler(message: "Internet Connection Failure");
+    } on HttpException {
+      print("HttpException");
+      throw ErrorHandler(message: "Connection Problem");
+    } on Exception catch (ex) {
+      print("ex = ${ex}");
+      throw ErrorHandler(message: ex.toString().replaceAll("Exception: ", ""));
+    }
+  }
+
+
+/* static Future<dynamic> postWithImageEdit(url, {Map<String, String>? body,imagePath,String? parameterName}) async {
+    print("url = $url");
+    print("body = $body");
+    print("imagePath = $imagePath");
+    print("parameterName = $parameterName");
+
+    try {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(url),
+      );
+      Map<String, String> headers = {"Content-type": "multipart/form-data"};
+      if(imagePath!= null || imagePath.toString().isNotEmpty)
+      {
+        request.files.add(
+          http.MultipartFile(
+            'profile_picture',
+            imagePath.readAsBytes().asStream(),
+            imagePath.lengthSync(),
+            filename: imagePath.path.split('/').last,
+          ),
+        );
+      }
+
+      request.headers.addAll(headers);
+      request.fields.addAll(body!);
+      print("request: " + request.toString());
+      var res = await request.send();
+      print("res = ${res}");
+      http.Response response = await http.Response.fromStream(res);
+      print("response = ${response.body}");
+      print("response = ${response.statusCode}");
+      if (response.statusCode == 200) {
+        // Convert response body to JSON
+        Map<String, dynamic> responseData = json.decode(response.body);
+        return responseData;
+      } else {
+        // Map<String, dynamic> responseData = json.decode(response.body);
+        // return responseData;
+        print("Request failed with status: ${response.statusCode}");
+      }
+    } on FormatException {
+      print("FormatException");
+      throw ErrorHandler(message: "Bad Response Format");
+    } on SocketException {
+      print("SocketException");
+      throw ErrorHandler(message: "Internet Connection Failure");
+    } on HttpException {
+      print("HttpException");
+      throw ErrorHandler(message: "Connection Problem");
+    } on Exception catch (ex) {
+      print("ex = ${ex}");
+      throw ErrorHandler(message: ex.toString().replaceAll("Exception: ", ""));
+    }
+  }*/
 // Api with Token
 
 }

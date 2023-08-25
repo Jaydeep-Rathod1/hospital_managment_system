@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/custom_loader.dart';
 import 'package:hospital_managment_system/app/widgets/drawer_custom.dart';
@@ -34,6 +35,7 @@ class HomeView extends GetView<HomeController> {
       body: Obx(() => SingleChildScrollView(
         child: Stack(
           children: [
+            // if(controller.isLoading.value) CustomLoader(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -113,7 +115,7 @@ class HomeView extends GetView<HomeController> {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         childAspectRatio: 3/4,
-                        crossAxisSpacing: 15, mainAxisSpacing: 0
+                        crossAxisSpacing: 15, mainAxisSpacing: 10
                     ),
 
                     physics: NeverScrollableScrollPhysics(),
@@ -129,16 +131,48 @@ class HomeView extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                height: 80,
-                                width: 80,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: ColorManager.lightPrimary,
-                                    borderRadius: BorderRadius.circular(10)
+                              height: 80,
+                              width: 80,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                  color: ColorManager.lightPrimary,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: UrlManager.DEPARTMENTPHOTO_URL+controller.departmentList.value[index].departmentPicture!, // Replace with your image URL
+                                color: ColorManager.primary,
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+
+                                    ),
+                                  ),
                                 ),
-                                child: Image.asset("assets/icons/endocrine.png",height: 50,width: 50,color: ColorManager.primary,)),
+                                placeholder: (context, url) => Container(
+                                  height: 50,
+                                  width: 50,
+                                  padding: EdgeInsets.all(25),
+                                  child: CircularProgressIndicator(color: ColorManager.primary,),
+                                ),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              ),
+                            ),
                             SizedBox(height: 10,),
-                            CustomText(text: controller.departmentList[index].name!,fontWeight: FontWeight.w500,color: ColorManager.primary,)
+                            Expanded(
+                              child: CustomText(
+                                text: controller.departmentList.value[index].name.toString(),
+                                fontWeight: FontWeight.w600,
+                                fontSize: FontSize.s12,
+                                color: ColorManager.primary,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                            )
                           ],
                         ),
                       );
@@ -152,7 +186,13 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomText(text: "Popular Doctor",fontSize: FontSize.s16,),
-                        CustomText(text: "View all",fontSize: FontSize.s12,color: ColorManager.primary,),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.ALLDOCTORS);
+                          },
+                          child: CustomText(text: "View all",fontSize: FontSize.s12,color: ColorManager.primary,),
+                        ),
+
                       ],
                     )
                 ),
@@ -177,7 +217,7 @@ class HomeView extends GetView<HomeController> {
                               padding: const EdgeInsets.only(top: 15.0,left: 10,right: 10,bottom: 15),
                               child: Column(children: [
                                 SizedBox(
-                                  height: 100,
+                                  height: 90,
                                   width: Get.mediaQuery.size.width,
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,7 +227,8 @@ class HomeView extends GetView<HomeController> {
                                         height: 90,
                                         width: 90,
                                         child: CachedNetworkImage(
-                                          imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80', // Replace with your image URL
+                                          // imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                                          imageUrl: UrlManager.DOCTORPHOTO_URL+controller.userList[index].profilePicture!, // Replace with your image URL// Replace with your image URL
                                           imageBuilder: (context, imageProvider) => Container(
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
@@ -215,7 +256,10 @@ class HomeView extends GetView<HomeController> {
                                             children: [
                                               CustomText(text: 'Dr. ${controller.userList[index].firstname} ${controller.userList[index].lastname}',fontSize: 16,maxLines: 1,textOverflow: TextOverflow.ellipsis),
                                               SizedBox(height: 5,),
+
+
                                               CustomText(text: '${controller.userList[index].education}',fontSize: 12,maxLines: 1,textOverflow: TextOverflow.ellipsis,color: ColorManager.darkGrey,fontWeight: FontWeight.normal,),
+
                                               Row(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,13 +277,7 @@ class HomeView extends GetView<HomeController> {
                                                 ],
                                               ),
                                               SizedBox(height: 7,),
-                                              Expanded(child: Align(
-                                                alignment: Alignment.bottomRight,
-                                                child: InkWell(
-                                                  onTap: (){},
-                                                  child: CustomText(text: "View More",color: ColorManager.primary,fontSize: FontSize.s14,),
-                                                ),
-                                              ))
+
                                             ],
                                           )
                                       )
@@ -294,13 +332,12 @@ class HomeView extends GetView<HomeController> {
                                         Container(
                                           height: 35,
                                           width: 110,
-
                                           child: ElevatedButtonCustom(
                                               titleText: "Book Now",
                                               fontSize: 14,
                                               padding: EdgeInsets.zero,
                                               onPressed: (){
-                                                // Get.offAllNamed(Routes.LOGIN);
+                                                Get.toNamed(Routes.APPOINTMENT);
                                               }),
                                         )
                                       ],
@@ -318,7 +355,7 @@ class HomeView extends GetView<HomeController> {
                 ),
               ],
             ),
-            if(controller.isLoading.value) CustomLoader()
+
           ],
         )
       ))

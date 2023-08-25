@@ -45,7 +45,7 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                             padding: const EdgeInsets.only(top: 15.0,left: 10,right: 10,bottom: 15),
                             child: Column(children: [
                               SizedBox(
-                                height: 100,
+                                height: 90,
                                 width: Get.mediaQuery.size.width,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,14 +101,7 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                                                 CustomText(text: '₹ ${controller.doctorByDepartmentList[index].charge ?? 0}',fontSize: 12,maxLines: 1,textOverflow: TextOverflow.ellipsis,fontWeight: FontWeight.bold),
                                               ],
                                             ),
-                                            SizedBox(height: 7,),
-                                            Expanded(child: Align(
-                                              alignment: Alignment.bottomRight,
-                                              child: InkWell(
-                                                onTap: (){},
-                                                child: CustomText(text: "View More",color: ColorManager.primary,fontSize: FontSize.s14,),
-                                              ),
-                                            ))
+
                                           ],
                                         )
                                     )
@@ -169,7 +162,10 @@ class DoctorbydepartmentsView extends GetView<DoctorbydepartmentsController> {
                                             fontSize: 14,
                                             padding: EdgeInsets.zero,
                                             onPressed: (){
-                                              Get.toNamed(Routes.APPOINTMENT,arguments: {"userData" : controller.doctorByDepartmentList[index]});
+                                              var datatosend ={
+                                                "userData" : controller.doctorByDepartmentList[index]
+                                              };
+                                              Get.toNamed(Routes.APPOINTMENT,arguments: datatosend);
                                               // Get.offAllNamed(Routes.LOGIN);
                                             }),
                                       )

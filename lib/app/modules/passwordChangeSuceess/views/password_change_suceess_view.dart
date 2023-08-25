@@ -35,7 +35,7 @@ class PasswordChangeSuceessView
                 ),
                 SizedBox(height: 60,),
                 ElevatedButtonCustom(titleText: "Continue", onPressed: (){
-                  Get.offAllNamed(Routes.LOGIN);
+                  Get.offAllNamed(Routes.HOME);
                 })
               ],
             ),

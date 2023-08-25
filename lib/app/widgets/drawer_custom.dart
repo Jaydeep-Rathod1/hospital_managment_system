@@ -1,12 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
 import 'package:hospital_managment_system/app/resources/storage_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
+import 'package:hospital_managment_system/app/widgets/drawer_custom_controller.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final CustomDrawerController controller = Get.put(CustomDrawerController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,14 +31,45 @@ class CustomDrawer extends StatelessWidget {
                           Container(
                             height: 80,
                             width: 80,
-                            padding: EdgeInsets.all(10),
+                            // padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 border: Border.all(color: ColorManager.grey),
                                 borderRadius: BorderRadius.circular(60),
                                 color: ColorManager.primary
                             ),
-                            child: Image.asset('assets/images/logo.png',fit: BoxFit.cover,),
-                          )
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+
+                              // imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                              imageUrl: UrlManager.PATIENTPHOTO_URL+controller.userModel.profilePicture!, // Replace with your image URL// Replace with your image URL
+                              imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) => Container(
+                                height: 50,
+                                width: 50,
+                                padding: EdgeInsets.all(25),
+                                child: CircularProgressIndicator(color: ColorManager.primary,),
+                              ),
+                              errorWidget: (context, url, error) =>  Container(
+                                height: 80,
+                                width: 80,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: ColorManager.grey),
+                                    borderRadius: BorderRadius.circular(60),
+                                    color: ColorManager.primary
+                                ),
+                                child: Image.asset('assets/images/logo.png',fit: BoxFit.cover,),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(width: 20,),
@@ -43,13 +78,16 @@ class CustomDrawer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(child: CustomText(text:"Rathod Jaydeep Rathod Jaydeep",maxLines: 1,fontSize: FontSize.s18,textOverflow: TextOverflow.ellipsis)),
+                            Container(child: CustomText(text:"${controller.userModel.firstname} ${controller.userModel.lastname}" ?? "",maxLines: 1,fontSize: FontSize.s18,textOverflow: TextOverflow.ellipsis)),
 
-                            CustomText(text:"7285052823",maxLines: 2,fontSize: FontSize.s12,),
+                            CustomText(text: controller.userModel.mobileNo ?? "",maxLines: 2,fontSize: FontSize.s12,),
                             SizedBox(height: 8,),
                             InkWell(
                                 onTap: (){
-                                  Get.toNamed(Routes.EDITPROFILEVIEW);
+                                  var datatosend ={
+                                    "userdata":controller.userModel
+                                  };
+                                  Get.toNamed(Routes.EDITPROFILEVIEW,arguments: datatosend);
                                 },
                                 child: CustomText(text:"View / Edit Profile",maxLines: 2,fontSize: FontSize.s12,color: ColorManager.primary,)),
                           ],
@@ -131,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
                     child: CustomText(text: "Appointments",fontSize: FontSize.s16,fontWeight: FontWeight.w500,color: ColorManager.primary,),
                   ),
                   onTap: () {
-                    Get.toNamed(Routes.APPOINTMENT);
+                    Get.toNamed(Routes.MYAPPOINTMENT);
                     // Perform desired actions for Home
                   },
                 ),

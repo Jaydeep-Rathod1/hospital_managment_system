@@ -1,4 +1,5 @@
 import "package:get_storage/get_storage.dart";
+import "package:hospital_managment_system/app/data/model/user_model.dart";
 
 class StorageManager {
   final _box = GetStorage();
@@ -23,7 +24,13 @@ class StorageManager {
     final json = model.toJson(); // Serialize the model to JSON
     await _box.write(key, json);
   }
-
+  Future<UserModel?> retrieveModelUser(String key) async {
+    final json = await _box.read(key); // Read the stored JSON data
+    if (json != null) {
+      return UserModel.fromJson(json); // Deserialize JSON into a UserModel object
+    }
+    return null; // Return null if no data found for the given key
+  }
   // Retrieve a model object
   T? retrieveModel<T>(String key, T Function(Map<String, dynamic>) fromJson) {
     final json = _box.read(key);

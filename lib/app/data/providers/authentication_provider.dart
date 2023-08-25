@@ -25,6 +25,7 @@ class AuthenticationProvider {
         return  null;
       }
     }catch(e){
+      print("error = ${e}");
       final error = ErrorHandler(message: e.toString());
       return error;
     }
@@ -64,6 +65,20 @@ class AuthenticationProvider {
         return  null;
       }
     }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return error;
+    }
+  }
+  Future<dynamic?> editUser(Map<String, String> data,url,fieldName,filePath) async {
+    try{
+      var response = await ApiHandler.postWithImageEdit(url, body: data,parameterName: fieldName,imagePath: filePath);
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      print("error = ${e}");
       final error = ErrorHandler(message: e.toString());
       return error;
     }

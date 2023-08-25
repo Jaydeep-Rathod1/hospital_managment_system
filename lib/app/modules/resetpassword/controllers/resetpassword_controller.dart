@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_managment_system/app/data/model/user_model.dart';
 import 'package:hospital_managment_system/app/data/repositories/authentication_repository.dart';
+import 'package:hospital_managment_system/app/resources/storage_manager.dart';
 import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -13,16 +15,19 @@ class ResetpasswordController extends GetxController {
   var isPasswordVisible = false.obs;
   var isCPasswordVisible = false.obs;
   RxString userid= "".obs;
+  RxBool isReset = false.obs;
   Rx<Map<String, dynamic>> receivedData = Rx<Map<String, dynamic>>({});
   RoundedLoadingButtonController loginbuttonController =
   RoundedLoadingButtonController();
   final AuthenticationRepository _authenticationRepository = AuthenticationRepository();
-
+  final userModel = UserModel().obs;
+  final StorageManager _storage = StorageManager();
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
     userid.value = receivedData.value['user_id'] ?? '';
+    isReset.value =receivedData.value['isReset'] ?? false;
   }
 
   void togglePasswordVisibility() {
@@ -48,6 +53,10 @@ class ResetpasswordController extends GetxController {
         if(response['status'] == "true"){
           formKey.currentState?.reset();
           loginbuttonController.success();
+          var userDetails = response['data'][0];
+          userModel.value = UserModel.fromJson(userDetails);
+          await _storage.storeModel('userData',userModel.value);
+          await _storage.setValue("isLogin", true);
           await Future.delayed(Duration(milliseconds: 100)).then((value) {
             Get.toNamed(Routes.PASSWORD_CHANGE_SUCEESS);
             loginbuttonController.reset();

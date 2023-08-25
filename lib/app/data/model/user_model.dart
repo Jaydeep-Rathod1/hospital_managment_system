@@ -24,6 +24,7 @@ class UserModel {
   String? isDelete;
   String? createdAt;
   String? updatedAt;
+  String? departmentName;
 
   UserModel(
       {this.userId,
@@ -50,20 +51,49 @@ class UserModel {
         this.isApporve,
         this.isDelete,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.departmentName
+      });
 
+  // UserModel.fromJson(Map<String, dynamic> json) {
+  //   userId = json['user_id'];
+  //   userType = json['user_type'];
+  //   firstname = json['firstname'];
+  //   lastname = json['lastname'];
+  //   email = json['email'];
+  //   password = json['password'];
+  //   designation = json['designation'] ?? "";
+  //   departmentId = json['department_id'];
+  //   address = json['address'] ?? "";
+  //   mobileNo = json['mobile_no'];
+  //   altMobileNo = json['alt_mobile_no'];
+  //   profilePicture = json['profile_picture'] ?? "";
+  //   dateOfBirth = json['date_of_birth'] ?? "";
+  //   education = json['education'] ?? "";
+  //   descritption = json['descritption'] ?? "";
+  //   status = json['status'] ?? "";
+  //   gender = json['gender'] ?? "";
+  //   bloodGroup = json['blood_group'] ?? "";
+  //   charge = json['charge'] != null ? json['charge'] :  "";
+  //   experience = json['experience'] != null ? json['experience'] :  "";
+  //   isVerify = json['is_verify'] ?? "";
+  //   isApporve = json['is_apporve'] ?? "";
+  //   isDelete = json['is_delete'] ?? "";
+  //   createdAt = json['created_at'];
+  //   updatedAt = json['updated_at'];
+  // }
   UserModel.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    userType = json['user_type'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
-    email = json['email'];
-    password = json['password'];
+    userId = json['user_id'] ?? "";
+    userType = json['user_type'] ?? "";
+    firstname = json['firstname'] ?? "";
+    lastname = json['lastname']  ?? "" ;
+    email = json['email'] ?? "";
+    password = json['password'] ?? "";
     designation = json['designation'] ?? "";
-    departmentId = json['department_id'];
+    departmentId = json['department_id'] ?? "";
     address = json['address'] ?? "";
-    mobileNo = json['mobile_no'];
-    altMobileNo = json['alt_mobile_no'];
+    mobileNo = json['mobile_no'] ?? "";
+    altMobileNo = json['alt_mobile_no'] ?? ""; // Set to empty string if null
     profilePicture = json['profile_picture'] ?? "";
     dateOfBirth = json['date_of_birth'] ?? "";
     education = json['education'] ?? "";
@@ -71,13 +101,14 @@ class UserModel {
     status = json['status'] ?? "";
     gender = json['gender'] ?? "";
     bloodGroup = json['blood_group'] ?? "";
-    charge = json['charge'] ?? "";
-    experience = json['experience'] ?? "";
+    charge = json['charge'] ?? ""; // Set to empty string if null
+    experience = json['experience'] ?? ""; // Set to empty string if null
     isVerify = json['is_verify'] ?? "";
     isApporve = json['is_apporve'] ?? "";
     isDelete = json['is_delete'] ?? "";
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    createdAt = json['created_at'] ?? "";
+    updatedAt = json['updated_at'] ?? "" ;
+    departmentName = json['department_name'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -107,6 +138,7 @@ class UserModel {
     data['is_delete'] = this.isDelete;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['department_name'] = this.departmentName;
     return data;
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/routes/app_pages.dart';
 import 'package:hospital_managment_system/app/widgets/custom_loader.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
@@ -42,7 +43,7 @@ class AlldoctorsView extends GetView<AlldoctorsController> {
                           padding: const EdgeInsets.only(top: 15.0,left: 10,right: 10,bottom: 15),
                           child: Column(children: [
                             SizedBox(
-                              height: 100,
+                              height: 90,
                               width: Get.mediaQuery.size.width,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +53,8 @@ class AlldoctorsView extends GetView<AlldoctorsController> {
                                     height: 90,
                                     width: 90,
                                     child: CachedNetworkImage(
-                                      imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80', // Replace with your image URL
+                                      // imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                                      imageUrl: UrlManager.DOCTORPHOTO_URL+controller.userList[index].profilePicture!, // Replace with your image URL// Replace with your image URL
                                       imageBuilder: (context, imageProvider) => Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),

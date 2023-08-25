@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_managment_system/app/data/model/user_model.dart';
 import 'package:hospital_managment_system/app/data/repositories/authentication_repository.dart';
+import 'package:hospital_managment_system/app/data/repositories/user_repository.dart';
 import 'package:hospital_managment_system/app/resources/color_manager.dart';
 import 'package:hospital_managment_system/app/resources/font_manager.dart';
+import 'package:hospital_managment_system/app/resources/storage_manager.dart';
 import 'package:hospital_managment_system/app/resources/url_manager.dart';
 import 'package:hospital_managment_system/app/widgets/elevated_button_custom.dart';
 import 'package:hospital_managment_system/app/widgets/text_custom.dart';
@@ -14,10 +17,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 class EditprofileviewController extends GetxController {
   final AuthenticationRepository _authenticationRepository = AuthenticationRepository();
   RxInt activeCurrentStep = 0.obs;
-  List<GlobalKey<FormState>> formKeys = List.generate(
-    3,
-        (_) => GlobalKey<FormState>(),
-  );
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final mobilenoController = TextEditingController();
   final passwordController = TextEditingController();
@@ -27,6 +27,8 @@ class EditprofileviewController extends GetxController {
   final dobController = TextEditingController();
   final addressController = TextEditingController();
   var isPasswordVisible = false.obs;
+  final userModelStore = UserModel().obs;
+  final StorageManager _storage = StorageManager();
   void togglePasswordVisibility() {
     isPasswordVisible.toggle();
   }
@@ -46,6 +48,40 @@ class EditprofileviewController extends GetxController {
   RoundedLoadingButtonController();
   final FocusNode focusNode = FocusNode();
   Rx<DateTime> selectedStartDate = Rx<DateTime>(DateTime.now());
+
+  Rx<String> imageOninit = "".obs;
+  Rx<bool> isSelectImage = false.obs;
+  UserModel? userModel;
+  Rx<bool> isLoading = false.obs;
+  final UserRepository _userRepository = UserRepository();
+  Rx<String> departmentNameTitle = ''.obs;
+  final Map<String, dynamic> arguments = Get.arguments;
+  void onInit() {
+    super.onInit();
+    print("init controler");
+    isLoading.value = true;
+    if (arguments != null && arguments.containsKey("userdata")) {
+      userModel = arguments["userdata"];
+      print("userdata get here = ${userModel!.mobileNo}");
+      refresh();
+      setDataToEditPage();
+    }
+  }
+
+  setDataToEditPage()async{
+    firstNameController.text = userModel!.firstname ?? "";
+    lastNameController.text = userModel!.lastname ?? "";
+    mobilenoController.text = userModel!.mobileNo ?? "";
+    emailController.text = userModel!.email ?? "";
+    addressController.text = userModel!.address ?? "";
+    selectedStartDate.value = userModel!.dateOfBirth.toString().isNotEmpty || userModel!.dateOfBirth.toString() != null ? DateTime.parse(userModel!.dateOfBirth.toString()):DateTime.now();
+    dobController.text = '${selectedStartDate.value.day}/${selectedStartDate.value.month}/${selectedStartDate.value.year}' ?? "";
+    selectedGender.value = userModel!.gender ?? "Male";
+    selected.value = userModel!.bloodGroup ?? "A+";
+    imageOninit.value = userModel!.profilePicture ?? "";
+    isSelectImage.value = false;
+  }
+
   Future<void> selectStartDate(BuildContext context) async {
     focusNode.unfocus();
     final DateTime? pickedDate = await showDatePicker(
@@ -75,26 +111,9 @@ class EditprofileviewController extends GetxController {
       dobController.text = '${selectedStartDate.value.day}/${selectedStartDate.value.month}/${selectedStartDate.value.year}';
     }
   }
-  stepState(int step) {
-    if (activeCurrentStep > step) {
-      return StepState.complete;
-    } else {
-      return StepState.editing;
-    }
-  }
 
-  void stepContinue() {
-    print(activeCurrentStep.value);
-    if (formKeys[activeCurrentStep.value].currentState!.validate()) {
-      if (activeCurrentStep < 3 - 1) {
-        loginbuttonController.reset();
-        activeCurrentStep.value += 1;
-      } else {
-        activeCurrentStep.value = 0;
-      }
-    }
 
-  }
+
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your password';
@@ -114,18 +133,6 @@ class EditprofileviewController extends GetxController {
     return null;
   }
 
-  void stepCancel() {
-    if (activeCurrentStep == 0) {
-      return;
-    } else {
-      activeCurrentStep -= 1;
-    }
-
-  }
-
-  void stepTapped(int index) {
-    activeCurrentStep.value = index;
-  }
   void openChooseDialog(){
     Get.dialog(
       AlertDialog(
@@ -181,6 +188,7 @@ class EditprofileviewController extends GetxController {
 
     if (xfilePick != null) {
       galleryFile.value = File(pickedFile!.path);
+      isSelectImage.value = true;
     } else {
       // Get.snackbar(
       //   'Error',
@@ -193,46 +201,62 @@ class EditprofileviewController extends GetxController {
 
   }
   submitForm()async{
-    if (formKeys[activeCurrentStep.value].currentState!.validate()){
-      var firstname =firstNameController.value.text.toString();
-      var lastname =lastNameController.value.text.toString();
-      var email =emailController.value.text.toString();
-      var mobileno =mobilenoController.value.text.toString();
-      var address =addressController.value.text.toString();
-      var dob =selectedStartDate;
-      var gender = selectedGender.value.toString();
-      var bloodGroup = selected.value.toString();
-
-      Map<String,dynamic> params = {
-        "firstname":firstname,
-        "lastname":lastname,
-        "email":email,
-        "mobile_no":mobileno,
-        "address":address,
-        "date_of_birth":dob,
-        "gender":gender,
-        "blood_group":bloodGroup,
-      };
+    if (formKey.currentState!.validate()){
       try{
-        // String url = UrlManager.REGISTER_URL;
-        // var response = await _authenticationRepository.regsiterUser(params,url,"profile_picture",galleryFile.value! );
-        // print("response = ${response.toString()}");
-        //
-        // if(response['status'] == "true"){
-        //   loginbuttonController.success();
-        //   Get.offNamed('/home');
-        // }else{
-        //   print("in else");
-        //   Get.snackbar(
-        //     'Error',
-        //     response['message'],
-        //     snackPosition: SnackPosition.BOTTOM,
-        //     backgroundColor: Colors.red,
-        //     colorText: Colors.white,
-        //     margin: EdgeInsets.all(20),
-        //     duration: Duration(seconds: 3),
-        //   );
-        // }
+        print("in try");
+        var firstname =firstNameController.value.text.toString();
+        var lastname =lastNameController.value.text.toString();
+        var email =emailController.value.text.toString();
+        var mobileno =mobilenoController.value.text.toString();
+        var address =addressController.value.text.toString();
+        var dob =selectedStartDate;
+        var gender = selectedGender.value.toString();
+        var bloodGroup = selected.value.toString();
+        var isSelectedImage = isSelectImage.value;
+        Map<String,String> params = {
+          "user_id": userModel!.userId!,
+          "firstname":firstname,
+          "lastname":lastname,
+          "email":email,
+          "mobile_no":mobileno,
+          "address":address,
+          "date_of_birth":dob.toString(),
+          "gender":gender,
+          "blood_group":bloodGroup,
+          "isSelectedImage":isSelectedImage.toString()
+        };
+        print("params = ${params}");
+        String url = UrlManager.EDIT_PROFILE_URL;
+        var response;
+        if(isSelectedImage){
+           response = await _authenticationRepository.editUser(params,url,"profile_picture",galleryFile.value! );
+        }else{
+          response = await _authenticationRepository.editUser(params,url,"profile_picture","" );
+        }
+
+        print("response = ${response.toString()}");
+
+        if(response['status'] == "true"){
+          var userDetails = response['data'];
+          userModelStore.value = UserModel.fromJson(userDetails);
+          await _storage.storeModel('userData',userModelStore.value);
+          loginbuttonController.success();
+          formKey.currentState!.reset();
+          Get.offAllNamed('/home');
+          // Get.offAndToNamed('/home');
+        }else{
+          print("in else");
+          Get.snackbar(
+            'Error',
+            response['message'],
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 3),
+          );
+        }
+        loginbuttonController.reset();
       } catch (error) {
         print("Error: $error");
         loginbuttonController.reset();

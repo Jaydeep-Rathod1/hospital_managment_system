@@ -69,7 +69,7 @@ class OtpView extends GetView<OtpController> {
                       }, // end onSubmit
                     ),
                     // SizedBox(height: 20,),
-                   /* Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -77,13 +77,13 @@ class OtpView extends GetView<OtpController> {
                           onTap: (){},
                           child: RichText(
                             text: TextSpan(
-                                text: 'Didn’t recieve the OTP ',
+                                text: 'Didn’t recieve the OTP   ',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: FontSize.s14,fontFamily:FontConstants.fontPoppinsRegular ),
                                 children: <TextSpan>[
                                   TextSpan(text: 'Resend it',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: FontSize.s16),
+                                          fontWeight: FontWeight.bold, fontSize: FontSize.s16, decoration: TextDecoration.underline,),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           // print("on tap singup");
@@ -95,9 +95,9 @@ class OtpView extends GetView<OtpController> {
                             ),
                           ),
                         ),
-                        CustomText(text: "00:00",fontSize: FontSize.s14,color: ColorManager.primary,),
+                        // CustomText(text: "00:00",fontSize: FontSize.s14,color: ColorManager.primary,),
                       ],
-                    ),*/
+                    ),
                   SizedBox(height: 60,),
                   ElevatedButtonCustom(titleText: "Verify",
                       onPressed: (){
