@@ -132,6 +132,23 @@ class AppointmentController extends GetxController with GetSingleTickerProviderS
         final StorageManager _storage = StorageManager();
         UserModel userForModel =(await _storage.retrieveModelUser('userData'))!;
         print("login user = ${userForModel.userId}");
+        Razorpay razorpay = Razorpay();
+        var options = {
+          'key': 'rzp_live_ILgsfZCZoFIKMb',
+          'amount': 100,
+          'name': 'Acme Corp.',
+          'description': 'Fine T-Shirt',
+          'retry': {'enabled': true, 'max_count': 1},
+          'send_sms_hash': true,
+          'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+          'external': {
+            'wallets': ['paytm']
+          }
+        };
+        razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+        razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
+        razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
+        razorpay.open(options);
       }else{
         Get.snackbar(
           'Error',
