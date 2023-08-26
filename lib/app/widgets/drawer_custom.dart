@@ -206,10 +206,10 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   title: Padding(
                     padding: const EdgeInsets.only(left: 12.0),
-                    child: CustomText(text: "Notification",fontSize: FontSize.s16,fontWeight: FontWeight.w500,color: ColorManager.primary,),
+                    child: CustomText(text: "Chats",fontSize: FontSize.s16,fontWeight: FontWeight.w500,color: ColorManager.primary,),
                   ),
                   onTap: () {
-                    Get.toNamed(Routes.NOTIFICATION);
+                    Get.toNamed(Routes.CHATLIST);
                     // Perform desired actions for Home
                   },
                 ),
@@ -232,7 +232,7 @@ class CustomDrawer extends StatelessWidget {
                     // Perform desired actions for Home
                   },
                 ),
-                Divider(
+               /* Divider(
                   height: 5,
                   indent: 0,
                   thickness: 1,
@@ -250,7 +250,7 @@ class CustomDrawer extends StatelessWidget {
                     Get.back(); // Close the drawer
                     // Perform desired actions for Home
                   },
-                ),
+                ),*/
                 Divider(
                   height: 5,
                   indent: 0,

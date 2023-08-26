@@ -17,4 +17,14 @@ class UserRepository {
   Future<dynamic?> getAllDoctor(url) async {
     return  _apiProvider.getAllDoctor(url);
   }
+  Future<dynamic?> addAppointment(Map<String, dynamic> params,url) async {
+    return  _apiProvider.addAppointment(params,url);
+  }
+  Future<dynamic?> getAppointment(Map<String, dynamic> data,url) async {
+    return  _apiProvider.getAppointment(data,url);
+  }
+
+  Future<dynamic?> getAllAppointmentByDoctot(Map<String, dynamic> data,url) async {
+    return  _apiProvider.getAllAppointmentByDoctot(data,url);
+  }
 }

@@ -32,6 +32,9 @@ abstract class Routes {
   static const PRIVACYPOLICY = _Paths.PRIVACYPOLICY;
   static const TERMSANDCONDITION = _Paths.TERMSANDCONDITION;
   static const CREATEPASSWORD = _Paths.CREATEPASSWORD;
+  static const CONFIRMAPPOINTMENT = _Paths.CONFIRMAPPOINTMENT;
+  static const CHATLIST = _Paths.CHATLIST;
+  static const CHATDETAILS = _Paths.CHATDETAILS;
 }
 
 abstract class _Paths {
@@ -65,4 +68,7 @@ abstract class _Paths {
   static const PRIVACYPOLICY = '/privacypolicy';
   static const TERMSANDCONDITION = '/termsandcondition';
   static const CREATEPASSWORD = '/createpassword';
+  static const CONFIRMAPPOINTMENT = '/confirmappointment';
+  static const CHATLIST = '/chatlist';
+  static const CHATDETAILS = '/chatdetails';
 }

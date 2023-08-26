@@ -1,3 +1,4 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_managment_system/app/data/model/deparment_model.dart';
@@ -72,5 +73,34 @@ class DoctorbydepartmentsController extends GetxController {
         );
       }
     }
+  }
+
+  onTapChat()async{
+    // await FirebaseFirestore.instance
+    //     .collection("Users")
+    //     .doc(userdata.uerId.toString())
+    //     .collection("Chats")
+    //     .doc(arrMatchModel.senderId.toString())
+    //     .set({
+    //   "bio": arrMatchModel.bio,
+    //   "name": arrMatchModel.firstName,
+    //   "photo_url":arrMatchModel.photoUrl1,
+    //   "is_block":false,
+    //   "is_block_by_user":false,
+    //   "time_stamp": myTimeStamp,
+    // }).whenComplete(() async{
+    //   await FirebaseFirestore.instance
+    //       .collection("Users")
+    //       .doc(arrMatchModel.senderId.toString())
+    //       .collection("Chats")
+    //       .doc(userdata.uerId.toString())
+    //       .set({
+    //     "bio": userdata.bio,
+    //     "name": userdata.firstname,
+    //     "photo_url":userdata.photoUrl1,
+    //     "is_block":false,
+    //     "is_block_by_user":false,
+    //     "time_stamp": myTimeStamp,
+    //   });
   }
 }

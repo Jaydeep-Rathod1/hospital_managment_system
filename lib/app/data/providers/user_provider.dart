@@ -60,5 +60,45 @@ class UserProvider {
       return null;
     }
   }
+  Future<dynamic?> addAppointment(Map<String, dynamic> data,url) async {
+    try{
+      var response = await ApiHandler.post(url,body: data);
+      print("here = ${response}");
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return null;
+    }
+  }
+  Future<dynamic?> getAppointment(Map<String, dynamic> data,url) async {
+    try{
+      var response = await ApiHandler.post(url, body: data);
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return error;
+    }
+  }
+  Future<dynamic?> getAllAppointmentByDoctot(Map<String, dynamic> data,url) async {
+    try{
+      var response = await ApiHandler.post(url, body: data);
+      if(response != null){
+        return response;
+      }else{
+        return  null;
+      }
+    }catch(e){
+      final error = ErrorHandler(message: e.toString());
+      return error;
+    }
+  }
 
 }

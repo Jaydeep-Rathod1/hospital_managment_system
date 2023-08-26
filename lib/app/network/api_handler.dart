@@ -39,9 +39,14 @@ class ApiHandler {
         body: body,
         // headers: {'Content-Type': 'application/json; charset=UTF-8'},
       );
+      print("post response = ${response.statusCode}");
+      print("post response = ${response.body}");
+
       if (response.statusCode == 200) {
+        print("post sucess");
         return json.decode(response.body);
       } else {
+        print("post error = ${response.statusCode}");
         return ErrorHandler(code: response.statusCode);
       }
     } on FormatException {

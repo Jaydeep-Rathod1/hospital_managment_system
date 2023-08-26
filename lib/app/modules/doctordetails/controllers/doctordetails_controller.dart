@@ -18,8 +18,5 @@ class DoctordetailsController extends GetxController {
       refresh();
       // isLoading.value = true;
     }
-
-
-
   }
 }

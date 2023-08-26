@@ -196,24 +196,20 @@ class AppointmentView extends GetView<AppointmentController>  {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 56,
+        height: 70,
         margin: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
         child: Row(
           children: <Widget>[
-
-            Expanded(
-              child: InkWell(
-                onTap: ()async{
-
-                  controller.bookSlot();
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  color: ColorManager.primary,
-                  child: CustomText(text: "Book Slot",color: ColorManager.white,fontSize: 16,fontWeight: FontWeight.w500,),
-                ),
+            Expanded(child: InkWell(
+              onTap: ()async{
+                controller.bookSlot();
+              },
+              child: Container(
+                alignment: Alignment.center,
+                color: ColorManager.primary,
+                child: CustomText(text: "You Have To Pay ₹${controller.userModel.value.charge} For Book Slot",color: ColorManager.white,fontSize: 16,fontWeight: FontWeight.w500,),
               ),
-            ),
+            ),)
           ],
         ),
       ),

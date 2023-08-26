@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-
-import '../modules/addappointment/bindings/addappointment_binding.dart';
-import '../modules/addappointment/views/addappointment_view.dart';
 import '../modules/alldoctors/bindings/alldoctors_binding.dart';
 import '../modules/alldoctors/views/alldoctors_view.dart';
 import '../modules/appointment/bindings/appointment_binding.dart';
 import '../modules/appointment/views/appointment_view.dart';
+import '../modules/confirmappointment/bindings/confirmappointment_binding.dart';
+import '../modules/confirmappointment/views/confirmappointment_view.dart';
 import '../modules/departments/bindings/departments_binding.dart';
 import '../modules/departments/views/departments_view.dart';
 import '../modules/doctorbydepartments/bindings/doctorbydepartments_binding.dart';
@@ -139,11 +138,7 @@ class AppPages {
       page: () => const DoctorbydepartmentsView(),
       binding: DoctorbydepartmentsBinding(),
     ),
-    GetPage(
-      name: _Paths.ADDAPPOINTMENT,
-      page: () => const AddappointmentView(),
-      binding: AddappointmentBinding(),
-    ),
+
     GetPage(
       name: _Paths.ALLDOCTORS,
       page: () => const AlldoctorsView(),
@@ -178,6 +173,11 @@ class AppPages {
       name: _Paths.TERMSANDCONDITION,
       page: () => const TermsandconditionView(),
       binding: TermsandconditionBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRMAPPOINTMENT,
+      page: () => const ConfirmappointmentView(),
+      binding: ConfirmappointmentBinding(),
     ),
 
   ];
